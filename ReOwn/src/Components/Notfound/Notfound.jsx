@@ -4,7 +4,7 @@ import style from './Notfound.module.css'
 export default function Notfound() {
   return (
     <>
-    <h1>Notfound</h1>
+    <h1></h1>
     </>
   )
 }
