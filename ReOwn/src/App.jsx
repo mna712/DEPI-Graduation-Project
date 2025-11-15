@@ -11,6 +11,9 @@ import Profile from './Components/Profile/Profile';
 import Product from './Components/Product/Product';
 import Footer from './Components/Footer/Footer';
 import Notfound from './Components/Notfound/Notfound';
+import counterContextProvider from './Context/Countercontext'
+
+
 
 let router = createBrowserRouter([
   {path:"" , element:<Layout /> , children:[
@@ -28,9 +31,11 @@ let router = createBrowserRouter([
 ])
 
 function App() {
-  const [count, setCount] = useState(0)
-
+ <counterContextProvider>
   return <RouterProvider router={router}></RouterProvider>
+ </counterContextProvider>
+
+  
     
   
 }
