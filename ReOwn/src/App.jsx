@@ -17,11 +17,11 @@ import counterContextProvider from './Context/Countercontext'
 
 let router = createBrowserRouter([
   {path:"" , element:<Layout /> , children:[
-    {index:"true" , element:<Home />},
+    {index: true , element:<Home />},
     {path:"cart" , element:<Cart />},
     {path:"categories", element:<Categories />},
     {path:"login" , element:<Login />},
-    {path:"prfile" , element:<Profile />},
+    {path:"profile" , element:<Profile />},
     {path:"product" , element:<Product />},
     {path:"*" , element:<Notfound />}
 
