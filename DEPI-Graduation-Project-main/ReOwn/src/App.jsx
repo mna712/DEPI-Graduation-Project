@@ -5,13 +5,12 @@ import Navbar from './Components/Navbar/Navbar'
 import Layout from './Components/Layout/Layout'
 import Home from './Components/Home/Home';
 import Cart from './Components/Cart/Cart';
-import Categories from './Components/Categories/Categories';
 import Login from './Components/Login/Login';
 import Profile from './Components/Profile/Profile';
 import Product from './Components/Product/Product';
 import Footer from './Components/Footer/Footer';
 import Notfound from './Components/Notfound/Notfound';
-
+import Categories from './Components/Home/Categories/Categories.jsx';
 let router = createBrowserRouter([
   {path:"" , element:<Layout /> , children:[
     {index: true , element:<Home />},
