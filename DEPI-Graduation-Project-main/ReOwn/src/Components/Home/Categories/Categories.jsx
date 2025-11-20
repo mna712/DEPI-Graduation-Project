@@ -1,11 +1,12 @@
 import React from 'react';
 
 const categories = [
-  { name: "Electronics", image: "/images/elctro.jps",link:"#" },
-  { name: "Furniture",   image: "/images/furn.jpg",link:"#" },
-  { name: "Books",       image: "/images/bookss.jpg",link:"#" },
-  { name: "Clothes",     image: "/images/Clothess.jpg",link:"#" },
+  { name: "Electronics", image: "/images/elctro.jpg", link: "#" },
+  { name: "Furniture",   image: "/images/furn.jpg", link: "#" },
+  { name: "Books",       image: "/images/bookss.jpg", link: "#" },
+  { name: "Clothes",     image: "/images/Clothess.jpg", link: "#" },
 ];
+
 function Categories() {
   return (
     <section className="w-full py-12 bg-gray-50">
@@ -16,11 +17,12 @@ function Categories() {
             Categories
           </h2>
 
-          <a href="#" className="text-[#141111B0] hover:text-[#047857CF] font-medium text-sm md:text-base transition-colors">
+          <a href="#" className="text-blue-500 hover:underline">
             View more
           </a>
         </div>
-<div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {categories.map((category) => (
             <div key={category.name} className="cursor-pointer">
               <div className="aspect-square overflow-hidden rounded-xl shadow-md mb-3">
