@@ -1,10 +1,13 @@
-import React from 'react'
-import Categories from './Categories/Categories'
-import ProductRecentlyAdded from './ProductRecentlyAdded/ProductRecentlyAdded'
+import React from "react";
+import MainSlider from "./MainSlider/MainSlider";
+import Categories from "./Categories/Categoriesslide";
+import ProductRecentlyAdded from "./ProductRecentlyAdded/ProductRecentlyAdded";
 export default function Home() {
   return (
-
-    <Categories/>,
-    <ProductRecentlyAdded/>
-  )
+    <div>
+      <MainSlider />
+      <Categories />
+      <ProductRecentlyAdded />
+    </div>
+  );
 }
