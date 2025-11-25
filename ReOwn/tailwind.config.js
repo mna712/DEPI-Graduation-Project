@@ -13,6 +13,7 @@ export default {
         darkBg: "#1C1F26", // خلفية الـ dark mode
         darkPrimary: "#6BCB77", // اللون الأساسي في dark mode
         darkText: "#E6E6E6", // النص في dark mode
+        
       },
       fontFamily: {
         heading: ["Poppins", "sans-serif"],
@@ -21,12 +22,8 @@ export default {
       boxShadow: {
         soft: "0 6px 18px rgba(0,0,0,0.06)", // ظل ناعم للعناصر
       },
-      transitionTimingFunction: {
-        smooth: "ease-in-out", // انتقالات ناعمة
-      },
-      scale: {
-        103: "1.03", // لتأثير hover
-      },
+      
+      
     },
   },
   plugins: [],

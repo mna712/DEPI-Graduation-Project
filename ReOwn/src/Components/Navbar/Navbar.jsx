@@ -148,7 +148,7 @@ const Navbar = () => {
                 <input
                   type="text"
                   placeholder="search"
-                  className="w-[300px] group-hover:w-[500px] transition-all duration-300 rounded-full border border-highlight px-2 py-1 focus:outline-none focus:border-1 focus:border-secondary  bg-secondary/20"
+                  className="w-[300px] group-hover:w-[500px] transition-all duration-300 rounded-full border border-highlight px-2 py-2 focus:outline-none focus:border-1 focus:border-secondary  bg-secondary/20"
                 />
                 <IoMdSearch className="absolute text-gray-500 -translate-y-1/2 group-hover:text-secondary top-1/2 right-3" />
               </div>
