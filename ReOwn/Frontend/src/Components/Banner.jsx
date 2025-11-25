@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import KitchenTool from "../assets/product_img/kitchen_tool.png";
-import HeadPhone from "../assets/product_img/headPhone.png";
-import Shoses from "../assets/product_img/shoses.png";
+import KitchenTool from "../assets/kitchen_tool.png";
+import HeadPhone from "../assets/headPhone.png";
+import Shoses from "../assets/shoses.png";
 
 const Banner = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
