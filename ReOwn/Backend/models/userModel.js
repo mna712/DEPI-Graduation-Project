@@ -64,6 +64,11 @@ maxlength: 15,
     },
 rate:{
         type: Number,
+    },
+location :{
+        type: String,
+        minlength: 2,
+        maxlength: 100,
 },
 role: {
       type: String,
