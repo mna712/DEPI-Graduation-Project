@@ -1,6 +1,6 @@
 import { Category } from "../../models/categoryModel.js";
-import {SUCCESS,FAIL} from "../../utilities/successWords.js"
-export const add = async (req, res) => {
+import { SUCCESS, FAIL } from "../../utilities/successWords.js";
+export const addCategory = async (req, res) => {
   const role = req.user.role;
   if (role !== "admin") {
     return res.status(403).json({
@@ -12,23 +12,26 @@ export const add = async (req, res) => {
 
   const { title } = req.body;
   if (!title || title.length < 3 || title.length > 30)
-    return res
-      .status(422)
-      .json({
-        message: "Title must be 3-30 chars",
-        success: FAIL,
-        status: 422,
-      });
-      const existingCategory= await Category.find({title})
+    return res.status(422).json({
+      message: "Title must be 3-30 chars",
+      success: FAIL,
+      status: 422,
+    });
+
+  const existingCategory = await Category.find({ title });
+
   if (existingCategory) {
     return res.status(400).json({
       success: FAIL,
       status: 400,
       message: "Category with this title already exists",
     });
-  }  
+  }
   const newCategory = new Category({
-    title,images: req.file ? { url: req.file.path, public_id: req.file.filename } : null
+    title,
+    image: req.file
+      ? { url: req.file.path, public_id: req.file.filename }
+      : null,
   });
   await newCategory.save();
   res.status(201).json({
@@ -38,4 +41,3 @@ export const add = async (req, res) => {
     success: SUCCESS,
   });
 };
-

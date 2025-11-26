@@ -1,5 +1,5 @@
-import { SUCCESS } from "../../utilities/successWords";
-import { Favourite } from "../../models/favouriteModel";
+import { SUCCESS } from "../../utilities/successWords.js";
+import { Favourite } from "../../models/favouriteModel.js";
 export const removeFavourite = async (req, res) => {
     const userId = req.user._id;
     const { productId } = req.params;

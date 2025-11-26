@@ -1,6 +1,6 @@
-import { Product } from "../../models/productModel";
-import { Favourite } from "../../models/favouriteModel";
-import { SUCCESS, FAIL } from "../../utilities/successWords";
+import { Product } from "../../models/productModel.js";
+import { Favourite } from "../../models/favouriteModel.js";
+import { SUCCESS, FAIL } from "../../utilities/successWords.js";
 export const getFavouriteProducts = async (req, res) => {
   const userId = req.user._id;
   const favourites = await Favourite.find({ userId });

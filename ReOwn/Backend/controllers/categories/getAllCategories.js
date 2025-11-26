@@ -1,4 +1,4 @@
-import { Category } from "../../models/categoryModel";
+import { Category } from "../../models/categoryModel.js";
 export const getAllCategories = async (req, res) => {
   let categories = await Category.find({ deleted_at: null });
   if (!categories || categories.length === 0) {

@@ -1,4 +1,4 @@
-import { Favourite } from "../../models/favouriteModel";
+import { Favourite } from "../../models/favouriteModel.js"
 import { SUCCESS, FAIL } from "../../utilities/successWords.js";
 export const addFavourite = async (req, res) => {
     const userId = req.user._id;

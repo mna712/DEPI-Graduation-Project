@@ -15,6 +15,7 @@ export const removeCategory = async (req, res) => {
     _id: categoryId,
     deleted_at: null,
   });
+
   if (!category) {
     return res.status(404).json({
       status: 404,
@@ -22,7 +23,8 @@ export const removeCategory = async (req, res) => {
       success: FAIL,
     });
   }
-  category.deleted_at = new Date();
+  category.deleted_at =  new Date();
+   await deleteImage(category.image.public_id);
   await category.save();
   res.status(204).json({
     status: 204,
