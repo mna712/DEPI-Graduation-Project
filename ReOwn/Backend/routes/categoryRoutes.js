@@ -13,7 +13,7 @@ const Router = express.Router();
 Router.post(
   "/",
   protect,
-  upload.array("categoryImage", 1),
+  upload.single("image"),
   asyncWrapper(addCategory)
 );
 
