@@ -20,13 +20,15 @@ const productSchema = new mongoose.Schema(
       required: true,
       enum: ["new", "used"],
     },
-    favourite: { type: Boolean, default: false },
-    buyerId: { type: mongoose.Schema.Types.ObjectId, ref: "User", default: null },
-    buyerPhone: { type: String, default: null },
-    contactMethod: { type: String, default: null, enum: ["phone", "chat"] },
+    sellerId: { type: mongoose.Schema.Types.ObjectId, ref: "User", default: null },
+    sellerPhone: { type: String, default: null },
+    contactMethod: { type: String, default: null, enum: ["phone", "chat","both"] },
     images: [{ type: String }],
     deleted_at: { type: Date, default: null },
     status: {enum: ["available","sold","pending"], type: String, default: "pending"},
+    isFavourite:{
+        type:Boolean
+    }
   },
   { timestamps: true }
 );
