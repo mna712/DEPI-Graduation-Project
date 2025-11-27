@@ -1,10 +1,9 @@
 import React from 'react'
-import style from './Home.module.css'
-
+import Categories from './Categories/Categories'
+import ProductRecentlyAdded from './ProductRecentlyAdded/ProductRecentlyAdded'
 export default function Home() {
   return (
-    <>
-    <h1></h1>
-    </>
+    <Categories/>,
+    <ProductRecentlyAdded/>
   )
 }
