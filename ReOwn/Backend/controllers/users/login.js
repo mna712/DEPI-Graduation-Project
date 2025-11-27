@@ -46,8 +46,8 @@ export const login = async (req, res) => {
       });
     }
 
-    const token = generateToken({ id: user._id, role: user.role });
-
+    const token = await generateToken({ id: user._id, role: user.role });
+  console.log("token",token);
     return res.status(200).json({
       status: 200,
       success: SUCCESS,
