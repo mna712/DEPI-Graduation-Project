@@ -47,7 +47,7 @@ const Navbar = () => {
             <img
               src="/images/Logo_Img.png"
               className="w-8 sm:w-10 lg:w-12"
-              alt="Logo"
+
             />
             <span className="whitespace-nowrap">ReOwn</span>
           </a>
@@ -148,7 +148,7 @@ const Navbar = () => {
                   Categories
                   <FaCaretDown className="transition-all group-hover:rotate-180" />
                 </a>
-                <div className="absolute z-50 hidden p-2 text-black rounded-md shadow-lg text-lg group-hover:block bg-textPrimary w-60">
+                <div className="absolute z-50 hidden p-2 text-lg text-black rounded-md shadow-lg group-hover:block bg-textPrimary w-60">
                   <ul>
                     {DropdownLinks.map((link, idx) => (
                       <li key={link.id}>
@@ -175,7 +175,7 @@ const Navbar = () => {
                 <input
                   type="text"
                   placeholder="search"
-                  className="w-[300px] group-hover:w-[500px] transition-all duration-300 rounded-full border border-highlight px-2 py-1 focus:outline-none focus:border-1 focus:border-secondary  bg-secondary/20"
+                  className="w-[300px] group-hover:w-[500px] transition-all duration-300 rounded-full border border-highlight px-2 py-2 focus:outline-none focus:border-1 focus:border-secondary  bg-secondary/20"
                 />
                 <IoMdSearch className="absolute text-gray-500 -translate-y-1/2 group-hover:text-secondary top-1/2 right-3" />
               </div>

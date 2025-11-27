@@ -9,7 +9,7 @@ export default function Layout() {
       <Navbar />
 
 
-      <div className='container my-5 py-5'>
+      <div className='container '>
         <Outlet />
       </div>
 
