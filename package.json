@@ -1,10 +1,9 @@
 {
   "dependencies": {
-    "axios": "^1.13.2",
     "formik": "^2.4.9",
     "nodemon": "^3.1.11",
-    "react-router-dom": "^7.9.6",
-    "yup": "^1.7.1"
+    "react-router-dom": "^7.9.6"
+    
   },
   "devDependencies": {
     "vite": "^7.2.4"
