@@ -1,13 +1,19 @@
 import React from "react";
 import { GoArrowLeft } from "react-icons/go";
+import { useNavigate } from "react-router-dom";
 
 function Search_Arrow() {
+  const navigate = useNavigate(); 
+
   return (
     <>
       <div className="px-4 py-4 sm:px-6 lg:px-8">
         <div className="flex items-center w-full gap-3">
-            {/* ArrowLeft */}
-          <button className="flex items-center justify-center flex-shrink-0 w-12 h-12 transition-all duration-300 ease-in-out bg-white rounded-lg shadow-md hover:bg-gray-100 hover:shadow-lg">
+          {/* ArrowLeft */}
+          <button
+            onClick={() => navigate(-1)} 
+            className="flex items-center justify-center flex-shrink-0 w-12 h-12 transition-all duration-300 ease-in-out bg-white rounded-lg shadow-md hover:bg-gray-100 hover:shadow-lg"
+          >
             <GoArrowLeft
               size={22}
               className="text-gray-800 transition-colors duration-300 hover:text-green-600"

@@ -1,11 +1,11 @@
 
-
 import React, { useState } from "react";
 import { IoMdSearch } from "react-icons/io";
-import { FaCartShopping } from "react-icons/fa6";
-import { FaCaretDown } from "react-icons/fa";
+
+import { FaCaretDown, FaHeart, FaBell } from "react-icons/fa";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { MdClose } from "react-icons/md";
+import { useAuth } from "../../Context/AuthContext";
 
 const Menu = [{ id: 1, name: "Home", link: "/#" }];
 
@@ -23,7 +23,7 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileCategoriesOpen, setMobileCategoriesOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn } = useAuth();
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -45,7 +45,7 @@ const Navbar = () => {
             className="flex items-center gap-2 text-xl font-bold sm:gap-3 sm:text-2xl lg:text-3xl"
           >
             <img
-              src="/images/Logo_Img.png" alt="Logo" 
+              src="/images/Logo_Img.png"
               className="w-8 sm:w-10 lg:w-12"
 
             />
@@ -57,21 +57,48 @@ const Navbar = () => {
 
           {/* Right Side Actions */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* Login / SignUp - Hidden on small screens */}
-            <div className="items-center hidden gap-2 md:flex">
-              <a
-                href="/login"
-                className="px-4 py-1 text-lg font-medium text-green-800 transition border border-green-800 rounded-full whitespace-nowrap hover:bg-green-800 hover:text-white"
-              >
-                Log In
-              </a>
-              <a
-                href="/signup"
-                className="px-4 py-1 text-lg font-medium text-white transition bg-green-800 rounded-full whitespace-nowrap hover:bg-green-700"
-              >
-                Sign Up
-              </a>
-            </div>
+            {isLoggedIn ? (
+              // Icons when logged in - Desktop
+              <div className="items-center hidden gap-3 md:flex">
+                <a
+                  href="/favorites"
+                  className="p-2 text-2xl text-green-800 transition rounded-full hover:bg-green-100"
+                  title="Favorites"
+                >
+                  <FaHeart />
+                </a>
+                <a
+                  href="/notifications"
+                  className="p-2 text-2xl text-green-800 transition rounded-full hover:bg-green-100"
+                  title="Notifications"
+                >
+                  <FaBell />
+                </a>
+                <a href="/profile" className="transition rounded-full hover:opacity-80" title="Profile">
+                  <img
+                    src="/images/Logo_Img.png"
+                    alt="Profile"
+                    className="w-10 h-10 border-2 border-green-800 rounded-full"
+                  />
+                </a>
+              </div>
+            ) : (
+              // Login / SignUp - Hidden on small screens
+              <div className="items-center hidden gap-2 md:flex">
+                <a
+                  href="/login"
+                  className="px-4 py-1 text-lg font-medium text-green-800 transition border border-green-800 rounded-full whitespace-nowrap hover:bg-green-800 hover:text-white"
+                >
+                  Log In
+                </a>
+                <a
+                  href="/signup"
+                  className="px-4 py-1 text-lg font-medium text-white transition bg-green-800 rounded-full whitespace-nowrap hover:bg-green-700"
+                >
+                  Sign Up
+                </a>
+              </div>
+            )}
             {/* Hamburger Menu - Mobile only */}
             <button
               onClick={toggleMobileMenu}
@@ -121,9 +148,9 @@ const Navbar = () => {
                   Categories
                   <FaCaretDown className="transition-all group-hover:rotate-180" />
                 </a>
-                <div className="absolute z-50 hidden p-2 text-black rounded-md shadow-lg text-2lg group-hover:block bg-textPrimary w-60">
+                <div className="absolute z-50 hidden p-2 text-lg text-black rounded-md shadow-lg group-hover:block bg-textPrimary w-60">
                   <ul>
-                    {DropdownLinks.map((link) => (
+                    {DropdownLinks.map((link, idx) => (
                       <li key={link.id}>
                         <a
                           href={link.link}
@@ -131,7 +158,7 @@ const Navbar = () => {
                         >
                           {link.name}
                         </a>
-                        {link.id !== DropdownLinks.length && (
+                        {idx !== DropdownLinks.length - 1 && (
                           <hr className="my-1 bg-gray-500" />
                         )}
                       </li>
@@ -158,7 +185,7 @@ const Navbar = () => {
             <div>
               <a
                 href="/add-ads"
-                className="px-5 py-2 text-lg font-medium text-white transition bg-green-800 rounded-md px- whitespace-nowrap hover:bg-green-700"
+                className="px-5 py-2 text-lg font-medium text-white transition bg-green-800 rounded-md whitespace-nowrap hover:bg-green-700"
               >
                 Add Ads
               </a>
@@ -239,21 +266,52 @@ const Navbar = () => {
             </li>
           </ul>
 
-          {/* Login / SignUp - Mobile */}
-          <div className="flex gap-3 pt-4 mt-4 border-t border-gray-200 md:hidden">
-            <a
-              href="/login"
-              className="flex-1 px-4 py-2 text-sm font-medium text-center text-green-800 transition border border-green-800 rounded-full hover:bg-green-800 hover:text-white"
-            >
-              Log In
-            </a>
-            <a
-              href="/signup"
-              className="flex-1 px-4 py-2 text-sm font-medium text-center text-white transition bg-green-800 rounded-full hover:bg-green-700"
-            >
-              Sign Up
-            </a>
-          </div>
+          {isLoggedIn ? (
+            // Icons when logged in - Mobile
+            <div className="flex gap-3 pt-4 mt-4 border-t border-gray-200 md:hidden">
+              <a
+                href="/favorites"
+                className="flex items-center justify-center flex-1 gap-2 px-4 py-2 text-sm font-medium text-center text-green-800 transition border border-green-800 rounded-full hover:bg-green-800 hover:text-white"
+              >
+                <FaHeart />
+                Favorites
+              </a>
+              <a
+                href="/notifications"
+                className="flex items-center justify-center flex-1 gap-2 px-4 py-2 text-sm font-medium text-center text-green-800 transition border border-green-800 rounded-full hover:bg-green-800 hover:text-white"
+              >
+                <FaBell />
+                Notifications
+              </a>
+              <a
+                href="/profile"
+                className="flex items-center justify-center flex-1 gap-2 px-4 py-2 text-sm font-medium text-center text-white transition bg-green-800 rounded-full hover:bg-green-700"
+              >
+                <img
+                  src="/images/Logo_Img.png"
+                  alt="Profile"
+                  className="w-6 h-6 border-2 border-white rounded-full"
+                />
+                Profile
+              </a>
+            </div>
+          ) : (
+            // Login / SignUp - Mobile
+            <div className="flex gap-3 pt-4 mt-4 border-t border-gray-200 md:hidden">
+              <a
+                href="/login"
+                className="flex-1 px-4 py-2 text-sm font-medium text-center text-green-800 transition border border-green-800 rounded-full hover:bg-green-800 hover:text-white"
+              >
+                Log In
+              </a>
+              <a
+                href="/signup"
+                className="flex-1 px-4 py-2 text-sm font-medium text-center text-white transition bg-green-800 rounded-full hover:bg-green-700"
+              >
+                Sign Up
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </div>

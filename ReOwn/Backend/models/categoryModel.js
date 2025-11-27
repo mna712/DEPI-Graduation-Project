@@ -4,6 +4,11 @@ const categorySchema = new mongoose.Schema(
   {
     title: { type: String, required: true, minlength: 3, maxlength: 40 },
     deleted_at: { type: Date, default: null },
+
+   image:{
+    type:String
+   }
+
   },
   { timestamps: true }
 );
