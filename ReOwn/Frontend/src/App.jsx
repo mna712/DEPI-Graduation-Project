@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import './App.css'
 import Navbar from './Components/Navbar/Navbar'
@@ -13,7 +12,7 @@ import Product from './Components/Product/Product';
 import Footer from './Components/Footer/Footer';
 import Notfound from './Components/Notfound/Notfound';
 import { AuthProvider } from './Context/AuthContext';
-
+import FavouritePage from './Components/Favourite/Favourite'
 let router = createBrowserRouter([
   {path:"" , element:<Layout /> , children:[
     {index: true , element:<Home />},
@@ -24,9 +23,8 @@ let router = createBrowserRouter([
     {path:"profile" , element:<Profile />},
     {path:"product" , element:<Product />},
     {path:"*" , element:<Notfound />}
-
+    ,{path:"favourites",element :<FavouritePage/>}
   ]
-
   },
 ])
 
