@@ -1,5 +1,3 @@
-
-
 import React, { useState } from "react";
 import Banner from "../Banner";
 import Search_Arrow from "../Search_Arrow";

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import KitchenTool from "../assets/kitchen_tool.png";
 import HeadPhone from "../assets/headPhone.png";
-import Shoses from "../assets/shoses.png";
+import Sofa from "../assets/sofa.png";
 
 const Banner = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -13,7 +13,7 @@ const Banner = () => {
       id: 1,
       title: 'Give Your Items a Second Life',
       description: 'Buy smart, save more. High-quality pre-owned items waiting for their next home.',
-      image: KitchenTool ,
+      image: KitchenTool,
       bgColor: 'bg-amber-100',
       imageRotation: 'rotate-[35deg]'
     },
@@ -21,17 +21,17 @@ const Banner = () => {
       id: 2,
       title: 'Fresh Finds Every Day',
       description: 'Handpicked pre-loved items in great condition.\nYour next favorite piece might be right here.',
-      image:  HeadPhone,
+      image: HeadPhone,
       bgColor: 'bg-rose-100',
-      imageRotation: 'rotate-[-15deg]'
+      imageRotation: 'rotate-[15deg]'
     },
     {
       id: 3,
       title: 'Discover Your Next Treasure',
       description: 'Explore electronics, fashion, furniture, books, and more.\nAll in one clean, simple marketplace.',
-      image: Shoses,
+      image: Sofa,
       bgColor: 'bg-blue-100',
-      imageRotation: 'rotate-[10deg]'
+      imageRotation: 'rotate-[5deg]'
     }
   ];
 
@@ -109,11 +109,11 @@ const Banner = () => {
                   style={{ transitionDelay: currentSlide === index ? '300ms' : '0ms' }}
                 >
                   <div className="relative">
-                    <div className="absolute inset-0 rounded-full bg-white/30 blur-3xl animate-pulse"></div>
+                    <div className="absolute inset-0 rounded-full bg-white/30 blur-3xl animate-pulse "></div>
                     <img
                       src={slide.image}
                       alt={slide.title}
-                      className={`relative w-48 h-48 object-contain ${slide.imageRotation} sm:w-56 sm:h-56 lg:w-72 lg:h-72 transition-transform duration-500 hover:scale-110`}
+                      className={`relative w-56 h-56 object-contain ${slide.imageRotation} sm:w-72 sm:h-72 lg:w-80 lg:h-80 transition-transform duration-500 hover:scale-110`}
                     />
                   </div>
                 </div>
@@ -169,7 +169,7 @@ const Banner = () => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes slideInLeft {
           from {
             opacity: 0;

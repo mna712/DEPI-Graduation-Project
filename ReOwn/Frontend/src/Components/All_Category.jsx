@@ -1,11 +1,14 @@
 import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { Search, Bell, User, ChevronRight, ChevronLeft } from "lucide-react";
 import { FaHeart } from "react-icons/fa";
 import { FiHeart, FiPhone } from "react-icons/fi";
 import { BsChatSquareDots } from "react-icons/bs";
+import { useFavorites } from "./Context/FavoritesContext";
 
 function All_Category() {
-  const [likedProducts, setLikedProducts] = useState({});
+  const navigate = useNavigate();
+  const { toggleFavorite, isFavorite } = useFavorites(); 
   const [showMessage, setShowMessage] = useState({});
   const carouselRefs = useRef({});
 
@@ -150,18 +153,16 @@ function All_Category() {
     },
   ];
 
-  const toggleLike = (productId) => {
-    setLikedProducts((prev) => ({
-      ...prev,
-      [productId]: !prev[productId],
-    }));
+  const handleToggleLike = (productId) => {
+    
+    toggleFavorite(productId);
 
-    const isLiked = !likedProducts[productId];
+    const isNowFavorite = !isFavorite(productId);
     setShowMessage((prev) => ({
       ...prev,
       [productId]: {
         visible: true,
-        text: isLiked ? "Added to favorites" : "Removed from favorites",
+        text: isNowFavorite ? "Added to favorites" : "Removed from favorites",
       },
     }));
 
@@ -173,8 +174,35 @@ function All_Category() {
     }, 2000);
   };
 
-  const handleViewMore = (categoryName) => {
-    alert(`Navigate to ${categoryName} page - Add your navigation logic here`);
+  const handleViewMore = (categoryId) => {
+    // Navigate to products page with category filter
+    navigate(`/product?category=${categoryId}`);
+    
+    /*     
+    const { search } = useLocation();
+    const params = new URLSearchParams(search);
+    const categoryId = params.get('category');
+    
+    if (categoryId) {
+      const filtered = products.filter(p => p.categoryId === parseInt(categoryId));
+    }
+    */
+  };
+
+  const handleProductClick = (productId) => {
+    navigate(`/product/${productId}`);
+  };
+
+  const handleCall = () => {
+    alert("Calling seller...");
+  };
+
+  const handleChat = () => {
+    alert("Opening chat...");
+  };
+
+  const handleBack = () => {
+    navigate(-1); 
   };
 
   const scroll = (categoryId, direction) => {
@@ -187,7 +215,7 @@ function All_Category() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-
+    
       {/* Categories Content */}
       <main className="px-4 py-4 pb-8 mx-auto max-w-7xl">
         {categories.map((category, index) => (
@@ -202,7 +230,7 @@ function All_Category() {
                 {category.name}
               </h2>
               <button
-                onClick={() => handleViewMore(category.name)}
+                onClick={() => handleViewMore(category.id)}
                 className="flex items-center gap-1 text-sm font-medium text-teal-600 transition-all duration-200 hover:text-teal-700 hover:gap-2"
               >
                 View more
@@ -235,19 +263,25 @@ function All_Category() {
                     key={product.id}
                     className="flex-shrink-0 w-[calc(50%-10px)] sm:w-[calc(33.333%-14px)] lg:w-[calc(25%-15px)]"
                   >
-                    <div className="relative flex flex-col h-full p-5 transition-all duration-300 bg-white shadow-md rounded-xl hover:shadow-xl hover:-translate-y-1 group/card">
+                    <div
+                      onClick={() => handleProductClick(product.id)}
+                      className="relative flex flex-col h-full p-5 transition-all duration-300 bg-white shadow-md cursor-pointer rounded-xl hover:shadow-xl hover:-translate-y-1 group/card"
+                    >
                       {/* Heart Icon */}
                       <div className="relative mb-3">
                         <button
                           className="absolute z-10 text-green-800 transition-all duration-200 top-2 right-2 hover:text-yellow-400 hover:scale-125"
-                          onClick={() => toggleLike(product.id)}
+                          onClick={(e) => {
+                            e.stopPropagation(); 
+                            handleToggleLike(product.id);
+                          }}
                           aria-label={
-                            likedProducts[product.id]
+                            isFavorite(product.id)
                               ? "Remove from favorites"
                               : "Add to favorites"
                           }
                         >
-                          {likedProducts[product.id] ? (
+                          {isFavorite(product.id) ? (
                             <FaHeart size={24} className="animate-heartBeat" />
                           ) : (
                             <FiHeart size={24} />
@@ -279,12 +313,20 @@ function All_Category() {
                         {/* Buttons */}
                         <div className="flex gap-3 mt-auto">
                           <button
+                            onClick={(e) => {
+                              e.stopPropagation(); 
+                              handleCall();
+                            }}
                             className="flex items-center justify-center flex-1 py-2.5 text-white transition-all duration-200 bg-green-800 rounded-full hover:bg-yellow-400 hover:text-black shadow-md hover:shadow-lg hover:scale-105"
                             aria-label="Call seller"
                           >
                             <FiPhone size={20} />
                           </button>
                           <button
+                            onClick={(e) => {
+                              e.stopPropagation(); 
+                              handleChat();
+                            }}
                             className="flex items-center justify-center flex-1 py-2.5 text-white transition-all duration-200 bg-green-800 rounded-full hover:bg-yellow-400 hover:text-black shadow-md hover:shadow-lg hover:scale-105"
                             aria-label="Chat with seller"
                           >
@@ -310,7 +352,7 @@ function All_Category() {
         ))}
       </main>
 
-      <style jsx>{`
+      <style>{`
         .scrollbar-hide::-webkit-scrollbar {
           display: none;
         }
