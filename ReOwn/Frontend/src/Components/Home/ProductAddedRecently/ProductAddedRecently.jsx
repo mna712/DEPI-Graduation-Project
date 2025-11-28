@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FiHeart, FiPhone, FiArrowRight } from "react-icons/fi";
 import { BsChatSquareDots } from "react-icons/bs";
 import { FaHeart } from "react-icons/fa";
-function ProductRecentlyAdded() {
+function ProductAddedRecently() {
     const [favorites, setFavorites] = useState([]);
       const [showMessage, setShowMessage] = useState({});
       const [products, setProducts] = useState([]);
@@ -356,4 +356,4 @@ function ProductRecentlyAdded() {
   );
 }
 
-export default ProductRecentlyAdded;
+export default ProductAddedRecently;

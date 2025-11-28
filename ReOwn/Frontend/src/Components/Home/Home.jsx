@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import CategoriesSection from "./CategoriesLink/CategoriesSection";
 import Hero from "./Hero/Hero";
-import ProductRecentlyAdded from "./ProductRecentlyAdded/productRecentlyAdded";
+import ProductAddedRecently from "./ProductAddedRecently/ProductAddedRecently";
+
 
 
 const Home = () => {
@@ -10,7 +11,7 @@ const Home = () => {
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
       <Hero/>
       <CategoriesSection/>
-      <ProductRecentlyAdded/>
+      <ProductAddedRecently/>
       
       <style>{`
         @keyframes fadeIn {
