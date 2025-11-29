@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from 'react-router-dom';
 import { FaHeart } from "react-icons/fa";
 import { FiHeart, FiPhone } from "react-icons/fi";
 import { BsChatSquareDots } from "react-icons/bs";
@@ -8,49 +7,62 @@ import { useFavorites } from "./Context/FavoritesContext";
 
 const Products = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { toggleFavorite, isFavorite } = useFavorites(); 
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showMessage, setShowMessage] = useState({});
 
-    // Mock Data 
+  // Mock Data 
   const MOCK_PRODUCTS = [
     {
       id: 1,
       name: "iPhone 13 Pro Max - 256GB Gold Edition",
       price: "30,500 EGP",
       image: "https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=400",
+      sellerId: 2,
+      sellerName: "Ahmed"
     },
     {
       id: 2,
       name: "Samsung Galaxy S21 Ultra",
       price: "25,000 EGP",
       image: "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=400&h=300&fit=crop",
+      sellerId: 3,
+      sellerName: "Mona"
     },
     {
       id: 3,
       name: "MacBook Pro 14 inch M1 Pro",
       price: "45,000 EGP",
       image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=300&fit=crop",
+      sellerId: 4,
+      sellerName: "Omar"
     },
     {
       id: 4,
       name: "iPad Air 5th Generation",
       price: "20,000 EGP",
       image: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400&h=300&fit=crop",
+      sellerId: 2,
+      sellerName: "Ahmed"
     },
     {
       id: 5,
       name: "AirPods Pro 2nd Generation",
       price: "8,500 EGP",
       image: "https://images.unsplash.com/photo-1606841837239-c5a1a4a07af7?w=400&h=300&fit=crop",
+      sellerId: 5,
+      sellerName: "Sara"
     },
     {
       id: 6,
       name: "Apple Watch Series 7 GPS",
       price: "12,000 EGP",
       image: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400&h=300&fit=crop",
+      sellerId: 3,
+      sellerName: "Mona"
     },
   ];
 
@@ -73,9 +85,7 @@ const Products = () => {
   };
 
   const handleToggleFavorite = (productId) => {
-
     toggleFavorite(productId);
-
 
     const isNowFavorite = !isFavorite(productId);
     setShowMessage((prev) => ({
@@ -98,8 +108,19 @@ const Products = () => {
     alert("Calling seller...");
   };
 
-  const handleChat = () => {
-    alert("Opening chat...");
+  // navigation to chat
+  const handleChatClick = (product) => {
+    console.log("Opening chat for product:", product.id);
+    navigate(`/chat/${product.id}`, {
+      state: { 
+        productId: product.id,
+        productName: product.name,
+        productPrice: product.price,
+        productImage: product.image,
+        sellerId: product.sellerId,
+        sellerName: product.sellerName
+      }
+    });
   };
 
   const handleProductClick = (productId) => {
@@ -119,8 +140,7 @@ const Products = () => {
     );
   }
 
-  const location = useLocation();
-  
+  // Filter products by category
   const searchParams = new URLSearchParams(location.search);
   const categoryId = searchParams.get('category');
   
@@ -134,7 +154,7 @@ const Products = () => {
         Products
       </h3>
       <div className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {products.map((product, index) => (
+        {filteredProducts.map((product, index) => (
           <div
             key={product.id}
             onClick={() => handleProductClick(product.id)}
@@ -199,7 +219,7 @@ const Products = () => {
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleChat();
+                    handleChatClick(product);
                   }}
                   className="flex items-center justify-center flex-1 py-2.5 text-white transition-all duration-200 bg-green-800 rounded-full hover:bg-yellow-400 hover:text-black shadow-md hover:shadow-lg hover:scale-105"
                   aria-label="Chat with seller"

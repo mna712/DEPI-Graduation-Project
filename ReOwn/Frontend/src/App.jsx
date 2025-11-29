@@ -17,6 +17,7 @@ import FavouritePage from "./Components/Favourite/Favourite";
 
 import { AuthProvider } from "./Context/AuthContext";
 import { FavoritesProvider } from "./Components/Context/FavoritesContext";
+import ChatSystem from "./Components/ChatSystem/ChatSystem";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
       { path: "product", element: <Product /> },
       { path: "product/:id", element: <ProductDetails /> },
       { path: "favourites", element: <FavouritePage /> },
+      { path: "/chat/:productId", element: <ChatSystem /> },
       { path: "*", element: <Notfound /> },
     ],
   },

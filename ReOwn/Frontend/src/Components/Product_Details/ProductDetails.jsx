@@ -10,7 +10,7 @@ import { useFavorites } from "../context/FavoritesContext";
 const ProductDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { toggleFavorite, isFavorite } = useFavorites(); 
+  const { toggleFavorite, isFavorite } = useFavorites();
   const [product, setProduct] = useState(null);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -150,7 +150,8 @@ const ProductDetails = () => {
         setProduct(foundProduct);
 
         const related = MOCK_PRODUCTS.filter(
-          (p) => p.categoryId === foundProduct.categoryId && p.id !== foundProduct.id
+          (p) =>
+            p.categoryId === foundProduct.categoryId && p.id !== foundProduct.id
         ).slice(0, 4);
 
         setRelatedProducts(related);
@@ -215,10 +216,6 @@ const ProductDetails = () => {
     alert("Calling seller...");
   };
 
-  const handleChat = () => {
-    alert("Opening chat...");
-  };
-
   const handleProductClick = (productId) => {
     navigate(`/product/${productId}`);
   };
@@ -255,6 +252,33 @@ const ProductDetails = () => {
       </div>
     );
   }
+
+  const handleChat = () => {
+    // product & seller data for chat
+    navigate(`/chat/${product.id}`, {
+      state: {
+        productId: product.id,
+        productName: product.name,
+        productPrice: product.price,
+        productImage: product.images[0],
+        sellerId: product.seller.id || 2,
+        sellerName: product.seller.name,
+      },
+    });
+  };
+
+  const handleChatRelated = (relatedProduct) => {
+    navigate(`/chat/${relatedProduct.id}`, {
+      state: {
+        productId: relatedProduct.id,
+        productName: relatedProduct.name,
+        productPrice: relatedProduct.price,
+        productImage: relatedProduct.images[0],
+        sellerId: relatedProduct.seller?.id || 2,
+        sellerName: relatedProduct.seller?.name || "Seller",
+      },
+    });
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -493,7 +517,7 @@ const ProductDetails = () => {
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleChat();
+                          handleChatRelated(relatedProduct);
                         }}
                         className="flex items-center justify-center flex-1 py-2 text-white transition-all duration-200 bg-green-800 rounded-full shadow-md hover:bg-yellow-400 hover:text-black hover:shadow-lg hover:scale-105"
                       >
