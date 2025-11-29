@@ -8,7 +8,7 @@ import { useFavorites } from "./Context/FavoritesContext";
 
 function All_Category() {
   const navigate = useNavigate();
-  const { toggleFavorite, isFavorite } = useFavorites(); 
+  const { toggleFavorite, isFavorite } = useFavorites();
   const [showMessage, setShowMessage] = useState({});
   const carouselRefs = useRef({});
 
@@ -154,7 +154,6 @@ function All_Category() {
   ];
 
   const handleToggleLike = (productId) => {
-    
     toggleFavorite(productId);
 
     const isNowFavorite = !isFavorite(productId);
@@ -177,7 +176,7 @@ function All_Category() {
   const handleViewMore = (categoryId) => {
     // Navigate to products page with category filter
     navigate(`/product?category=${categoryId}`);
-    
+
     /*     
     const { search } = useLocation();
     const params = new URLSearchParams(search);
@@ -197,12 +196,22 @@ function All_Category() {
     alert("Calling seller...");
   };
 
-  const handleChat = () => {
-    alert("Opening chat...");
+  const handleChat = (product) => {
+    // navigate to chat
+    navigate(`/chat/${product.id}`, {
+      state: {
+        productId: product.id,
+        productName: product.name,
+        productPrice: product.price,
+        productImage: product.image,
+        sellerId: product.sellerId || 2, 
+        sellerName: product.sellerName || "Seller",
+      },
+    });
   };
 
   const handleBack = () => {
-    navigate(-1); 
+    navigate(-1);
   };
 
   const scroll = (categoryId, direction) => {
@@ -215,7 +224,6 @@ function All_Category() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-    
       {/* Categories Content */}
       <main className="px-4 py-4 pb-8 mx-auto max-w-7xl">
         {categories.map((category, index) => (
@@ -272,7 +280,7 @@ function All_Category() {
                         <button
                           className="absolute z-10 text-green-800 transition-all duration-200 top-2 right-2 hover:text-yellow-400 hover:scale-125"
                           onClick={(e) => {
-                            e.stopPropagation(); 
+                            e.stopPropagation();
                             handleToggleLike(product.id);
                           }}
                           aria-label={
@@ -314,7 +322,7 @@ function All_Category() {
                         <div className="flex gap-3 mt-auto">
                           <button
                             onClick={(e) => {
-                              e.stopPropagation(); 
+                              e.stopPropagation();
                               handleCall();
                             }}
                             className="flex items-center justify-center flex-1 py-2.5 text-white transition-all duration-200 bg-green-800 rounded-full hover:bg-yellow-400 hover:text-black shadow-md hover:shadow-lg hover:scale-105"
@@ -324,8 +332,8 @@ function All_Category() {
                           </button>
                           <button
                             onClick={(e) => {
-                              e.stopPropagation(); 
-                              handleChat();
+                              e.stopPropagation();
+                              handleChat(product); 
                             }}
                             className="flex items-center justify-center flex-1 py-2.5 text-white transition-all duration-200 bg-green-800 rounded-full hover:bg-yellow-400 hover:text-black shadow-md hover:shadow-lg hover:scale-105"
                             aria-label="Chat with seller"
