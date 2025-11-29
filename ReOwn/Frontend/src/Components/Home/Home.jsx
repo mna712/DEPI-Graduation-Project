@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CategoriesSection from "./CategoriesLink/CategoriesSection";
 import Hero from "./Hero/Hero";
-import ProductRecentlyAdded from "./ProductRecentlyAdded/productRecentlyAdded";
+import ProductRecentlyAdded from "../ProductRecentlyAdded/ProductRecentlyAdded";
 
 
 const Home = () => {

@@ -14,6 +14,10 @@ import ProductDetails from "./Components/Product_Details/ProductDetails";
 import Footer from "./Components/Footer/Footer";
 import Notfound from "./Components/Notfound/Notfound";
 import FavouritePage from "./Components/Favourite/Favourite";
+import AddAds from "./Components/AddAds/AddAds";
+import Checkout from "./Components/Checkout/Checkout";
+import All_Category from "./Components/All_Category";
+import ProductRecentlyAdded from "./Components/ProductRecentlyAdded/ProductRecentlyAdded";
 
 import { AuthProvider } from "./Context/AuthContext";
 import { FavoritesProvider } from "./Components/Context/FavoritesContext";
@@ -32,6 +36,10 @@ const router = createBrowserRouter([
       { path: "product", element: <Product /> },
       { path: "product/:id", element: <ProductDetails /> },
       { path: "favourites", element: <FavouritePage /> },
+      { path: "add-ads", element: <AddAds /> },
+      { path: "checkout", element: <Checkout /> },
+      { path: "all-categories", element: <All_Category /> },
+      { path: "recently-added", element: <ProductRecentlyAdded /> },
       { path: "*", element: <Notfound /> },
     ],
   },

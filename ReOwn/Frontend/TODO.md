@@ -1,5 +1,7 @@
-# TODO: Modify Post Ad Functionality
+# TODO: Turn on all components in project
 
-- [ ] Modify AddAds.jsx: Import useNavigate, add navigate hook, update handleSubmit to navigate to '/product/1' with state { showAlert: true }
-- [ ] Modify ProductDetails.jsx: Import useLocation, add location hook, add useEffect to check for showAlert and display alert
-- [ ] Test the navigation and alert functionality
+## Steps to Complete
+- [x] Add imports for AddAds, Checkout, All_Category, and ProductRecentlyAdded in src/App.jsx
+- [x] Add routes in the router: /add-ads for AddAds, /checkout for Checkout, /all-categories for All_Category, /recently-added for ProductRecentlyAdded
+- [ ] Run the development server to verify the routes work
+- [ ] Test navigation to the new routes
