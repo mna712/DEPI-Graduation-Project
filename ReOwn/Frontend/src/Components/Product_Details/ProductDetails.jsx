@@ -6,6 +6,7 @@ import { FaHeart } from "react-icons/fa";
 import { FiHeart, FiPhone } from "react-icons/fi";
 import { BsChatSquareDots } from "react-icons/bs";
 import { useFavorites } from "../Context/FavoritesContext";
+import { useFavorites } from "../Context/FavoritesContext";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -17,121 +18,178 @@ const ProductDetails = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showMessage, setShowMessage] = useState({});
 
+
   // Mock Data
-  const MOCK_PRODUCTS = [
-    {
-      id: 1,
-      name: "iPhone 13 Pro Max - 256GB Gold Edition",
-      price: "30,500 EGP",
-      condition: "Used",
-      description:
-        "Used iPhone 13 Pro Max - Pink color, in excellent condition.\nUsed for 8 months only, battery health 90%.\nNo parts have been replaced and everything works perfectly.",
-      images: [
-        "https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=600&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1611472173362-3f53dbd65d80?w=600&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=600&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=600&h=600&fit=crop",
-      ],
-      seller: {
-        name: "John Smith",
-        avatar: "https://i.pravatar.cc/150?img=12",
-        location: "Cairo, Egypt",
-      },
-      categoryId: 1
+const MOCK_PRODUCTS = [
+  // Electronics
+  {
+    id: 1,
+    name: "iPhone 13 Pro Max - 256GB Gold Edition",
+    price: "30,500 EGP",
+    condition: "Used",
+    description:
+      "Used iPhone 13 Pro Max - Gold color, in excellent condition.\nUsed for 8 months only, battery health 90%.\nNo parts have been replaced and everything works perfectly.",
+    images: [
+      "https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=600&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1611472173362-3f53dbd65d80?w=600&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=600&h=600&fit=crop",
+    ],
+    seller: {
+      name: "John Smith",
+      avatar: "https://i.pravatar.cc/150?img=12",
+      location: "Cairo, Egypt",
     },
-    {
-      id: 2,
-      name: "Samsung Galaxy S21 Ultra",
-      price: "25,000 EGP",
-      condition: "Used",
-      description:
-        "Samsung Galaxy S21 Ultra 5G - Phantom Black.\nUsed for 1 year, battery health 85%.\nIncludes original box and charger.\nNo scratches or dents.",
-      images: [
-        "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=600&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=600&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&h=600&fit=crop",
-      ],
-      seller: {
-        name: "Sarah Ahmed",
-        avatar: "https://i.pravatar.cc/150?img=25",
-        location: "Alexandria, Egypt",
-      },
-      categoryId: 1,
+    categoryId: 1,
+  },
+  {
+    id: 2,
+    name: "Samsung Galaxy S21 Ultra",
+    price: "25,000 EGP",
+    condition: "Used",
+    description:
+      "Samsung Galaxy S21 Ultra 5G - Phantom Black.\nUsed for 1 year, battery health 85%.\nIncludes original box and charger.\nNo scratches or dents.",
+    images: [
+      "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=600&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=600&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&h=600&fit=crop",
+    ],
+    seller: {
+      name: "Sarah Ahmed",
+      avatar: "https://i.pravatar.cc/150?img=25",
+      location: "Alexandria, Egypt",
     },
-    {
-      id: 3,
-      name: "MacBook Pro 14 inch M1 Pro",
-      price: "45,000 EGP",
-      condition: "New",
-      description:
-        "Brand new MacBook Pro 14 with M1 Pro chip.\n16GB RAM, 512GB SSD.\nSpace Gray color.\nSealed box with full warranty.",
-      images: [
-        "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=600&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&h=600&fit=crop",
-      ],
-      seller: {
-        name: "Mohamed Ali",
-        avatar: "https://i.pravatar.cc/150?img=33",
-        location: "Giza, Egypt",
-      },
-      categoryId: 1,
+    categoryId: 1,
+  },
+  {
+    id: 3,
+    name: "MacBook Pro 14 inch M1 Pro",
+    price: "45,000 EGP",
+    condition: "New",
+    description:
+      "Brand new MacBook Pro 14 with M1 Pro chip.\n16GB RAM, 512GB SSD.\nSpace Gray color.\nSealed box with full warranty.",
+    images: [
+      "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=600&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&h=600&fit=crop",
+    ],
+    seller: {
+      name: "Mohamed Ali",
+      avatar: "https://i.pravatar.cc/150?img=33",
+      location: "Giza, Egypt",
     },
-    {
-      id: 4,
-      name: "iPad Air 5th Generation",
-      price: "20,000 EGP",
-      condition: "New",
-      description:
-        "iPad Air 2022 - 64GB WiFi.\nBlue color, brand new sealed.\nApple warranty included.\nPerfect for students and professionals.",
-      images: [
-        "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1561154464-82e9adf32764?w=600&h=600&fit=crop",
-      ],
-      seller: {
-        name: "Ahmed Hassan",
-        avatar: "https://i.pravatar.cc/150?img=15",
-        location: "Cairo, Egypt",
-      },
-      categoryId: 1,
+    categoryId: 1,
+  },
+  // Fashion
+  {
+    id: 7,
+    name: "Summer Dress Collection",
+    price: "1,200 EGP",
+    condition: "New",
+    description:
+      "Beautiful summer dress collection, made of lightweight fabric.\nPerfect for parties and casual outings.\nAvailable in multiple colors and sizes.",
+    images: [
+      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1600181958351-9b41f0e3c5e1?w=600&h=600&fit=crop",
+    ],
+    seller: {
+      name: "Nour El-Din",
+      avatar: "https://i.pravatar.cc/150?img=52",
+      location: "Cairo, Egypt",
     },
-    {
-      id: 5,
-      name: "AirPods Pro 2nd Generation",
-      price: "8,500 EGP",
-      condition: "New",
-      description:
-        "AirPods Pro 2nd Gen with USB-C.\nActive Noise Cancellation.\nBrand new sealed box.\nOfficial Apple warranty.",
-      images: [
-        "https://images.unsplash.com/photo-1606841837239-c5a1a4a07af7?w=600&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1588423771073-b8903fbb85b5?w=600&h=600&fit=crop",
-      ],
-      seller: {
-        name: "Layla Mahmoud",
-        avatar: "https://i.pravatar.cc/150?img=45",
-        location: "Cairo, Egypt",
-      },
-      categoryId: 1,
+    categoryId: 2,
+  },
+  {
+    id: 8,
+    name: "Casual Shirt Premium",
+    price: "800 EGP",
+    condition: "New",
+    description:
+      "Premium quality casual shirt, 100% cotton.\nSoft, comfortable, and perfect for everyday wear.\nAvailable in various colors.",
+    images: [
+      "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=600&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=600&h=600&fit=crop",
+    ],
+    seller: {
+      name: "Mona Salah",
+      avatar: "https://i.pravatar.cc/150?img=60",
+      location: "Alexandria, Egypt",
     },
-    {
-      id: 6,
-      name: "Apple Watch Series 7 GPS",
-      price: "12,000 EGP",
-      condition: "Used",
-      description:
-        "Apple Watch Series 7 GPS.\nGreen aluminum case.\nUsed for 6 months, excellent condition.\nIncludes original box and charger.",
-      images: [
-        "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=600&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=600&h=600&fit=crop",
-      ],
-      seller: {
-        name: "Omar Khaled",
-        avatar: "https://i.pravatar.cc/150?img=18",
-        location: "Cairo, Egypt",
-      },
-      categoryId: 1,
+    categoryId: 2,
+  },
+  {
+    id: 9,
+    name: "Sport Sneakers Nike",
+    price: "2,500 EGP",
+    condition: "New",
+    description:
+      "Nike sport sneakers, lightweight and breathable.\nPerfect for running, gym, and casual wear.\nAvailable in different sizes.",
+    images: [
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop",
+    ],
+    seller: {
+      name: "Khaled Youssef",
+      avatar: "https://i.pravatar.cc/150?img=44",
+      location: "Cairo, Egypt",
     },
-  ];
+    categoryId: 2,
+  },
+  // Home & Kitchen
+  {
+    id: 12,
+    name: "Coffee Maker Deluxe",
+    price: "1,500 EGP",
+    condition: "New",
+    description:
+      "Deluxe coffee maker with multiple brewing options.\nEasy to use and clean.\nPerfect for home and office use.",
+    images: [
+      "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=600&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1585043155562-1a5a77a8c9b3?w=600&h=600&fit=crop",
+    ],
+    seller: {
+      name: "Fatma Khalil",
+      avatar: "https://i.pravatar.cc/150?img=70",
+      location: "Giza, Egypt",
+    },
+    categoryId: 3,
+  },
+  {
+    id: 13,
+    name: "Professional Blender",
+    price: "900 EGP",
+    condition: "New",
+    description:
+      "High-performance professional blender.\nPerfect for smoothies, soups, and sauces.\nDurable and easy to clean.",
+    images: [
+      "https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=600&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=600&h=600&fit=crop",
+    ],
+    seller: {
+      name: "Omar Khaled",
+      avatar: "https://i.pravatar.cc/150?img=18",
+      location: "Cairo, Egypt",
+    },
+    categoryId: 3,
+  },
+  {
+    id: 14,
+    name: "Air Fryer XL",
+    price: "2,200 EGP",
+    condition: "New",
+    description:
+      "Extra-large air fryer with rapid air technology.\nCook your favorite meals with less oil.\nEasy to clean and maintain.",
+    images: [
+      "https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=600&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=600&h=600&fit=crop",
+    ],
+    seller: {
+      name: "Sara Adel",
+      avatar: "https://i.pravatar.cc/150?img=75",
+      location: "Alexandria, Egypt",
+    },
+    categoryId: 3,
+  },
+];
 
   useEffect(() => {
     console.log("Product ID from URL:", id);
