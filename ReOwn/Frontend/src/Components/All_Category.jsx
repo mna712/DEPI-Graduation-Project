@@ -210,9 +210,7 @@ function All_Category() {
     });
   };
 
-  const handleBack = () => {
-    navigate(-1);
-  };
+  
 
   const scroll = (categoryId, direction) => {
     const container = carouselRefs.current[categoryId];

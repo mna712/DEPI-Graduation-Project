@@ -17,6 +17,8 @@ import ForgetPassword from "./Components/ForgetPassword/ForgetPassword";
 import { AuthProvider } from "./Context/AuthContext";
 import { FavoritesProvider } from "./Components/Context/FavoritesContext";
 import ChatSystem from "./Components/ChatSystem/ChatSystem";
+import EditProfile from "./Components/Profile/EditProfile/EditProfile";
+import SellAd from "./Components/SellAds/SellAds";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +37,8 @@ const router = createBrowserRouter([
       { path: "favourites", element: <FavouritePage /> },
       { path: "/chat/:productId", element: <ChatSystem /> },
       {path:"/profile",element:<Profile/>},
+      {path:"/editPofile",element:<EditProfile/>},
+      {path:"/sell",element:<SellAd/>},
       { path: "*", element: <Notfound /> }
     ],
   },

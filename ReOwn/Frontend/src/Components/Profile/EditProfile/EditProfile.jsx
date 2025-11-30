@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import DeleteAcount from './../DeleteAccount/DeleteAcount.jsx'
+import DeleteAcount from '../DeleteAccount/DeleteAccount';
 import { MdOpacity } from 'react-icons/md';
 function EditProfile() {
   const [Show , setShow] = useState("none")

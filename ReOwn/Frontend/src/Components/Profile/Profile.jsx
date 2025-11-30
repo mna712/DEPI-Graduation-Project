@@ -1,146 +1,222 @@
-import  { useEffect, useState } from 'react';
-import Report from './Report/Report';
+import { useEffect, useState } from "react";
+import Report from "./Report/Report";
+import EditProfile from "./EditProfile/EditProfile";
+import DeleteAcount from "./DeleteAccount/DeleteAccount";
 export default function Profile() {
-  const [Show , setShow] = useState("none")
-  const [api, getApi] = useState([]);
+  const [show, setShow] = useState("none");
+  const [api, setApi] = useState([]);
 
   useEffect(() => {
-    fetch('https://dummyjson.com/products')
-      .then(res => res.json())
-      .then(data => getApi(data.products));
+    fetch("https://dummyjson.com/products")
+      .then((res) => res.json())
+      .then((data) => setApi(data.products));
   }, []);
 
+
+  const handleEdit = (id) => {
+    alert(`Edit product ${id}`); 
+  };
+
+  const handleDelete = (id) => {
+    const filtered = api.filter((product) => product.id !== id);
+    setApi(filtered);
+  };
+
+  // -----------------------------------------
+
   return (
-    <div className="p-6">
-
-      <div className="flex flex-wrap justify-center m-auto gap-3">
-
-        {/* PROFILE CARD */}
-        <div
-          // style={{ margin: "20px" }}
-          className="relative bg-neutral-primary-soft max-w-xs w-full p-6 border border-default rounded-base shadow-xs text-center shadow-md"
-        >
-          <div className="flex flex-col items-center">
-            <img
-              className="w-24 h-24 mb-6 rounded-full"
-              src="public\images\OIP (3).webp"
-              alt="image"
-            />
-            <h5 className="mb-0.5 text-xl font-semibold tracking-tight text-heading">
-              John Smith
-            </h5>
-            <span className="text-sm text-body">Johnsmith@gmail.com</span>
-
-            <div className="mt-4 md:mt-6 gap-4">
-              <a href='edit'
-                style={{ borderRadius: "10px", width: "180px" }}
-                type="button"
-                className="inline-flex w-auto text-body bg-neutral-secondary-medium border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading shadow-xs font-medium text-sm px-4 py-2.5"
-              >
-              <h2 className='ml-8'> Edit Profile</h2> 
-              </a>
-              
-              <div
-                style={{ borderRadius: "10px", width: "180px",margin:"12px" }}
-                type="button"
-                className="inline-flex w-auto text-body bg-neutral-secondary-medium border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading shadow-xs font-medium text-sm px-4 py-2.5"
-              >
+    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col lg:flex-row gap-6">
+          {/* PROFILE CARD */}
+          <div className="flex-shrink-0 lg:w-80">
+            <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
+              <div className="flex flex-col items-center">
                 <img
-                  className="ml-14"
-                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAABYElEQVR4AeyUYbYBMQyFvbeR9+yElWAlWAlWgpWwE/KpjExPOzI9NfzgNG2aNPc2deb+jt70+yjif3mEZWWbC15rxB3vJXsSW1W2jeCBK0sYlphbTUL4JbO+5A3cEv/dIgNNlnggykDzJQ7vMMDsfeqD3OXnbmNZz2I6yC1kQ57cVvynw0s8NUiQrs1+J76SxTlJpYeHmI7S1SEKWfDCzP5ZzchDzIcfIB+z/eZnj3DjpWqaJI6XGClF1QBE4ZBU6jHiaDs+ec6yss+ah5hiwAFEb9FdYmqQcJGLBMhzVtzu4SXuRinIfokLHq2sxD71sQyiV1XDYYn56LFeSD0Ot4TFEoOBNKK7fB5qKofkU0Zez+ZWMNHxpj4mJgEQWqyGFhOPjQ70ono2t4LZqk8Rtw5kNnRGB8V/TV9iuoSQzjJ38oW9xBBql/g+9I5THmKIqnRp7+EltjVVfA9xFaIY5AoAAP//RNs0UQAAAAZJREFUAwAuG0s9rRklLQAAAABJRU5ErkJggg=="
+                  className="w-24 h-24 mb-4 rounded-full object-cover border-4 border-gray-100"
+                  src="/images/OIP (3).webp"
+                  alt="profile"
                 />
+
+                <h5 className="mb-1 text-xl font-semibold text-gray-900">
+                  John Smith
+                </h5>
+                <span className="text-sm text-gray-600 mb-6">Johnsmith@gmail.com</span>
+
+                {/* BUTTONS */}
+                <div className="w-full space-y-3">
+                  {/* EDIT PROFILE BUTTON */}
+                  <button
+                    onClick={() => alert('Edit Profile clicked')}
+                    className="flex items-center justify-center w-full text-gray-700 bg-white border border-gray-300 
+                      hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200 font-medium text-sm 
+                      px-4 py-2.5 rounded-lg shadow-sm"
+                  >
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                    Edit Profile
+                  </button>
+
+                  {/* SETTINGS BUTTON */}
+                  <button
+                    className="flex items-center justify-center w-full text-gray-700 bg-white border border-gray-300 
+                      hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200 font-medium 
+                      text-sm px-4 py-2.5 rounded-lg shadow-sm"
+                  >
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    Settings
+                  </button>
+
+                  {/* REPORT BUTTON */}
+                  <button
+                    onClick={() => setShow("flex")}
+                    className="w-full text-blue-600 hover:text-blue-800 hover:underline text-sm font-medium py-2 transition-colors duration-200"
+                  >
+                    Report User
+                  </button>
+                </div>
               </div>
+            </div>
+          </div>
+
+          {/* RIGHT SIDE: RATE + TABLE */}
+          <div className="flex-1 min-w-0">
+            {/* RATE SECTION */}
+            <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6 mb-6">
+              <div className="flex items-center justify-between flex-wrap gap-4">
+                <h2 className="text-2xl font-bold text-gray-900">Rating</h2>
+                <div className="flex items-center gap-1">
+                  {[...Array(5)].map((_, index) => (
+                    <svg
+                      key={index}
+                      className="w-6 h-6 text-yellow-400 fill-current"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                    </svg>
+                  ))}
+                  <span className="ml-2 text-gray-600 text-sm">(5.0)</span>
+                </div>
+              </div>
+            </div>
+
+            {/* TABLE */}
+            <div className="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
+              <div className="p-6 border-b border-gray-200">
+                <h2 className="text-2xl font-bold text-gray-900">My Recent Ads</h2>
+              </div>
+
+              <div className="overflow-x-auto">
+                <div className="max-h-[500px] overflow-y-auto">
+                  <table className="w-full text-sm text-left">
+                    <thead className="text-xs uppercase bg-gray-50 text-gray-700 sticky top-0 border-b border-gray-200">
+                      <tr>
+                        <th className="px-6 py-4 font-semibold">Photo</th>
+                        <th className="px-6 py-4 font-semibold">Title</th>
+                        <th className="px-6 py-4 font-semibold">Category</th>
+                        <th className="px-6 py-4 font-semibold">Price</th>
+                        <th className="px-6 py-4 font-semibold">Status</th>
+                        <th className="px-6 py-4 font-semibold">Actions</th>
+                      </tr>
+                    </thead>
+
+                    <tbody className="divide-y divide-gray-200">
+                      {api.map((element) => (
+                        <tr
+                          key={element.id}
+                          className="bg-white hover:bg-gray-50 transition-colors duration-150"
+                        >
+                          <td className="px-6 py-4">
+                            <img
+                              src={element.images[0]}
+                              alt="img"
+                              className="w-14 h-14 rounded-lg object-cover border border-gray-200"
+                            />
+                          </td>
+
+                          <td className="px-6 py-4 font-medium text-gray-900">
+                            {element.title}
+                          </td>
+                          
+                          <td className="px-6 py-4 text-gray-600 capitalize">
+                            {element.category}
+                          </td>
+
+                          <td className="px-6 py-4">
+                            <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-800">
+                              ${element.price}
+                            </span>
+                          </td>
+
+                          <td className="px-6 py-4">
+                            <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-yellow-100 text-yellow-800">
+                              Pending
+                            </span>
+                          </td>
+
+                          {/* ACTIONS */}
+                          <td className="px-6 py-4">
+                            <div className="flex items-center gap-3">
+                              <button
+                                onClick={() => handleEdit(element.id)}
+                                className="text-blue-600 hover:text-blue-800 font-medium hover:underline transition-colors duration-150"
+                              >
+                                Edit
+                              </button>
+
+                              <button
+                                onClick={() => handleDelete(element.id)}
+                                className="text-red-600 hover:text-red-800 font-medium hover:underline transition-colors duration-150"
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* REPORT MODAL */}
+      {show === "flex" && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+            <h3 className="text-xl font-bold text-gray-900 mb-4">Report User</h3>
+            <textarea
+              className="w-full border border-gray-300 rounded-lg p-3 mb-4 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              rows="4"
+              placeholder="Describe the reason for reporting..."
+            ></textarea>
+            <div className="flex gap-3 justify-end">
               <button
-              onClick={()=>{setShow("flex")}}
-                style={{ borderRadius: "10px", width: "180px",margin:"12px" }}
-                type="button"
-                className='text-blue-800 underline decoration-solid'
+                onClick={() => setShow("none")}
+                className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 font-medium"
               >
-              <a>Report User</a>
-              
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  alert('Report submitted');
+                  setShow("none");
+                }}
+                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 font-medium"
+              >
+                Submit Report
               </button>
             </div>
           </div>
         </div>
-
-        {/* RATE SECTION */}
-        <div>
-          <div className="flex ml-14 mb-8 mt-8 ">
-            <h1 className="text-2xl font-bold">Rate</h1>
-
-            <div className="flex ml-14">
-              {[...Array(5)].map((i) => (
-                <img
-                  key={i}
-                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAABnklEQVR4AdSWjVHDMAxGfUwCkwCTAJMAk8AmsAlsAnpu5Pha/dRuer32rFiV9elZaeLrTbnQ5yrBz3KzMJnGx2zHD4L6WAxf3LExC37tML3fhWN3BkyHmFbGx/T7UfMM+MmobMWMtDU0A7YeKDq+Xcvm3ijY+z2BemvmLkbBb2aVXZCud94R130wYnaO6evyJXV+xP7EokHX5GFoVE8tfh6s6XswCwjoCuM7xmYo2kSBQx6GBi1GLd0E8Srvwb81ct5LY/Tgb2GyO5nOMh6lqgmWeHmXy4vY1gMojbW6fcca/BRnKzgdHkClfrHAxLeAu1AAHpi1U+Dc1jspAlymwxGByQbOPGouUAtlYN5DzR2Z2/vqiTKwp8vieoi4eRn43lXmC6E2A6e3LOCH2gzMLbNq61PLk4tv5XjamhuBvQeLY5VDgScXwydWC3YXwG7XEXj/N6IzOuRY7epXlxhr5NTAcnH/EkVgdrzoCx3RGR0W58MaOeQ6KWs4AnNeY3RCR6sq9shFgxYzsyMwHXByMZviIIgGrZsSgV3RFgv/AAAA//9KfemQAAAABklEQVQDAGGJPj3CsYxrAAAAAElFTkSuQmCC"
-                  alt="star"
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* TABLE */}
-          <div className="relative overflow-x-auto overflow-y-auto h-96 bg-neutral-primary-soft shadow-xs rounded-base border border-default grow shadow-md ">
-
-            <div className="p-4">
-              <h1 className="text-2xl font-bold">My Recent Ads</h1>
-            </div>
-
-            <table className=" text-sm text-left border-collapse">
-              <thead className="text-sm bg-gray border-b sticky top-0 z-10 ">
-                <tr>
-                  <th className="px-6 py-3">Photo</th>
-                  <th className="px-6 py-3 text-center">Title</th>
-                  <th className="px-6 py-3">Category</th>
-                  <th className="px-6 py-3">Price</th>
-                  <th className="px-6 py-3">Status</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {api.map((element) => (
-                  <tr
-                    key={element.id}
-                    className="bg-neutral-primary-soft border-b hover:bg-neutral-secondary-medium"
-                  >
-                    <td className="p-4">
-                      <img
-                        src={element.images[0]}
-                        alt="img"
-                        className="w-14 h-14 rounded"
-                      />
-                    </td>
-
-                    <td className="px-6 py-4 text-center">{element.title}</td>
-                    <td className="px-6 py-4">{element.category}</td>
-
-                    <td className="">
-                      <span className="px-3 py-1 bg-green-300 rounded">
-                        ${element.price}
-                      </span>
-                    </td>
-
-                    <td className="">
-                      <span className="px-3 py-1 bg-green-300 rounded">
-                      panding
-                      </span>
-                    </td>
-
-                  
-                  
-                    <td className="px-6 py-4 text-fg-brand hover:underline cursor-pointer">
-                    Eidit/ Delete
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-
-          </div>
-        </div>
-
-      </div>
-      <Report display={Show} setDisplay={setShow}/>
+      )}
     </div>
   );
 }
