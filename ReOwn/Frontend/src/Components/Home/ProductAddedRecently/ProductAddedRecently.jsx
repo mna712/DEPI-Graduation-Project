@@ -1,168 +1,182 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { FiHeart, FiPhone, FiArrowRight } from "react-icons/fi";
 import { BsChatSquareDots } from "react-icons/bs";
 import { FaHeart } from "react-icons/fa";
+import { useFavorites } from "../../Context/FavoritesContext";
+
 function ProductAddedRecently() {
-    const [favorites, setFavorites] = useState([]);
-      const [showMessage, setShowMessage] = useState({});
-      const [products, setProducts] = useState([]);
-      const [loading, setLoading] = useState(true);
-      const [currentIndex, setCurrentIndex] = useState(0);
-      const [itemsPerPage, setItemsPerPage] = useState(4);
-    
-      // Mock Recently Added Products
-      const MOCK_PRODUCTS = [
-        {
-          id: 1,
-          name: "iPhone 13 Pro Max - 256GB Gold Edition",
-          price: "30,500 EGP",
-          image:
-            "https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=400",
-        },
-        {
-          id: 2,
-          name: "Samsung Galaxy S21 Ultra",
-          price: "25,000 EGP",
-          image:
-            "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=400&h=300&fit=crop",
-        },
-        {
-          id: 3,
-          name: "MacBook Pro 14 inch M1 Pro",
-          price: "45,000 EGP",
-          image:
-            "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=300&fit=crop",
-        },
-        {
-          id: 4,
-          name: "iPad Air 5th Generation",
-          price: "20,000 EGP",
-          image:
-            "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400&h=300&fit=crop",
-        },
-        {
-          id: 5,
-          name: "AirPods Pro 2nd Generation",
-          price: "8,500 EGP",
-          image:
-            "https://images.unsplash.com/photo-1606841837239-c5a1a4a07af7?w=400&h=300&fit=crop",
-        },
-        {
-          id: 6,
-          name: "Apple Watch Series 7 GPS",
-          price: "12,000 EGP",
-          image:
-            "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400&h=300&fit=crop",
-        },
-        {
-          id: 7,
-          name: "Sony WH-1000XM4 Headphones",
-          price: "9,800 EGP",
-          image:
-            "https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=400&h=300&fit=crop",
-        },
-        {
-          id: 8,
-          name: "Nintendo Switch OLED",
-          price: "15,000 EGP",
-          image:
-            "https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?w=400&h=300&fit=crop",
-        },
-      ];
-    
-      
-    
-      useEffect(() => {
-        loadProducts();
-        updateItemsPerPage();
-        window.addEventListener("resize", updateItemsPerPage);
-        return () => window.removeEventListener("resize", updateItemsPerPage);
-      }, []);
-    
-      const updateItemsPerPage = () => {
-        if (window.innerWidth >= 1024) {
-          setItemsPerPage(4);
-        } else if (window.innerWidth >= 640) {
-          setItemsPerPage(2);
-        } else {
-          setItemsPerPage(1);
-        }
-      };
-    
-      const loadProducts = async () => {
-        setLoading(true);
-        try {
-          await new Promise((resolve) => setTimeout(resolve, 300));
-          setProducts(MOCK_PRODUCTS);
-        } catch (error) {
-          console.error("Error loading products:", error);
-        } finally {
-          setLoading(false);
-        }
-      };
-    
-      const isFavorite = (productId) => favorites.includes(productId);
-    
-      const toggleFavorite = (productId) => {
-        setFavorites((prev) =>
-          prev.includes(productId)
-            ? prev.filter((id) => id !== productId)
-            : [...prev, productId]
-        );
-    
-        const isNowFavorite = !isFavorite(productId);
-        setShowMessage((prev) => ({
-          ...prev,
-          [productId]: {
-            visible: true,
-            text: isNowFavorite ? "Added to favorites" : "Removed from favorites",
-          },
-        }));
-    
-        setTimeout(() => {
-          setShowMessage((prev) => ({
-            ...prev,
-            [productId]: { ...prev[productId], visible: false },
-          }));
-        }, 2000);
-      };
-    
-      const handleCall = () => {
-        alert("Calling seller...");
-      };
-    
-      const handleChat = () => {
-        alert("Opening chat...");
-      };
-    
-      const handleProductClick = (productId) => {
-        console.log("Product clicked:", productId);
-      };
-    
-      const handleCategoryClick = (categoryId) => {
-        console.log("Category clicked:", categoryId);
-      };
-    
-      const handleViewAllProducts = () => {
-        console.log("View all products");
-      };
-    
-      const nextSlide = () => {
-        if (currentIndex < products.length - itemsPerPage) {
-          setCurrentIndex((prev) => prev + 1);
-        }
-      };
-    
-      const prevSlide = () => {
-        if (currentIndex > 0) {
-          setCurrentIndex((prev) => prev - 1);
-        }
-      };
-    
-      const visibleProducts = products.slice(
-        currentIndex,
-        currentIndex + itemsPerPage
-      );
+  
+  const navigate = useNavigate();
+  const { toggleFavorite, isFavorite } = useFavorites();
+  const [showMessage, setShowMessage] = useState({});
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(4);
+
+  // Mock Recently Added Products
+  const MOCK_PRODUCTS = [
+    {
+      id: 1,
+      name: "iPhone 13 Pro Max - 256GB Gold Edition",
+      price: "30,500 EGP",
+      image: "https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=400",
+      sellerId: 2,
+      sellerName: "Ahmed"
+    },
+    {
+      id: 2,
+      name: "Samsung Galaxy S21 Ultra",
+      price: "25,000 EGP",
+      image: "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=400&h=300&fit=crop",
+      sellerId: 3,
+      sellerName: "Mona"
+    },
+    {
+      id: 3,
+      name: "MacBook Pro 14 inch M1 Pro",
+      price: "45,000 EGP",
+      image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=300&fit=crop",
+      sellerId: 4,
+      sellerName: "Omar"
+    },
+    {
+      id: 4,
+      name: "iPad Air 5th Generation",
+      price: "20,000 EGP",
+      image: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400&h=300&fit=crop",
+      sellerId: 2,
+      sellerName: "Ahmed"
+    },
+    {
+      id: 5,
+      name: "AirPods Pro 2nd Generation",
+      price: "8,500 EGP",
+      image: "https://images.unsplash.com/photo-1606841837239-c5a1a4a07af7?w=400&h=300&fit=crop",
+      sellerId: 5,
+      sellerName: "Sara"
+    },
+    {
+      id: 6,
+      name: "Apple Watch Series 7 GPS",
+      price: "12,000 EGP",
+      image: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400&h=300&fit=crop",
+      sellerId: 3,
+      sellerName: "Mona"
+    },
+    {
+      id: 7,
+      name: "Sony WH-1000XM4 Headphones",
+      price: "9,800 EGP",
+      image: "https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=400&h=300&fit=crop",
+      sellerId: 6,
+      sellerName: "Khaled"
+    },
+    {
+      id: 8,
+      name: "Nintendo Switch OLED",
+      price: "15,000 EGP",
+      image: "https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?w=400&h=300&fit=crop",
+      sellerId: 7,
+      sellerName: "Yasmin"
+    },
+  ];
+
+  useEffect(() => {
+    loadProducts();
+    updateItemsPerPage();
+    window.addEventListener("resize", updateItemsPerPage);
+    return () => window.removeEventListener("resize", updateItemsPerPage);
+  }, []);
+
+  const updateItemsPerPage = () => {
+    if (window.innerWidth >= 1024) {
+      setItemsPerPage(4);
+    } else if (window.innerWidth >= 640) {
+      setItemsPerPage(2);
+    } else {
+      setItemsPerPage(1);
+    }
+  };
+
+  const loadProducts = async () => {
+    setLoading(true);
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 300));
+      setProducts(MOCK_PRODUCTS);
+    } catch (error) {
+      console.error("Error loading products:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+  const handleToggleFavorite = (productId) => {
+    toggleFavorite(productId);
+
+    const isNowFavorite = !isFavorite(productId);
+    setShowMessage((prev) => ({
+      ...prev,
+      [productId]: {
+        visible: true,
+        text: isNowFavorite ? "Added to favorites" : "Removed from favorites",
+      },
+    }));
+
+    setTimeout(() => {
+      setShowMessage((prev) => ({
+        ...prev,
+        [productId]: { ...prev[productId], visible: false },
+      }));
+    }, 2000);
+  };
+
+  const handleCall = () => {
+    alert("Calling seller...");
+  };
+
+  const handleChat = (product) => {
+    navigate(`/chat/${product.id}`, {
+      state: {
+        productId: product.id,
+        productName: product.name,
+        productPrice: product.price,
+        productImage: product.image,
+        sellerId: product.sellerId,
+        sellerName: product.sellerName
+      }
+    });
+  };
+
+  const handleProductClick = (productId) => {
+    console.log("Navigating to product:", productId);
+    navigate(`/product/${productId}`);
+  };
+
+  const handleViewAllProducts = () => {
+    console.log("Navigating to all products");
+    navigate('/product');
+  };
+
+  const nextSlide = () => {
+    if (currentIndex < products.length - itemsPerPage) {
+      setCurrentIndex((prev) => prev + 1);
+    }
+  };
+
+  const prevSlide = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex((prev) => prev - 1);
+    }
+  };
+
+  const visibleProducts = products.slice(
+    currentIndex,
+    currentIndex + itemsPerPage
+  );
+
   return (
     <>
       {/* Recently Added Products Section */}
@@ -186,66 +200,15 @@ function ProductAddedRecently() {
         ) : (
           <div className="relative">
             {/* Navigation Buttons */}
-            <div className="mb-6 ">
-                  {/* <div className="flex gap-3">
-                    <button
-                      onClick={prevSlide}
-                      disabled={currentIndex === 0}
-                      className={`p-3 rounded-full transition-all duration-300 ${
-                        currentIndex === 0
-                          ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                          : "bg-green-800 text-white hover:bg-yellow-400 hover:text-black hover:scale-110 shadow-md hover:shadow-lg"
-                      }`}
-                      aria-label="Previous products"
-                    >
-                      <svg
-                        className="w-6 h-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M15 19l-7-7 7-7"
-                        />
-                      </svg>
-                    </button>
-                    <button
-                      onClick={nextSlide}
-                      disabled={currentIndex >= products.length - itemsPerPage}
-                      className={`p-3 rounded-full transition-all duration-300 ${
-                        currentIndex >= products.length - itemsPerPage
-                          ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                          : "bg-green-800 text-white hover:bg-yellow-400 hover:text-black hover:scale-110 shadow-md hover:shadow-lg"
-                      }`}
-                      aria-label="Next products"
-                    >
-                      <svg
-                        className="w-6 h-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </button>
-                  </div> */}
-    
-                  <button
-                    onClick={handleViewAllProducts}
-                    className="flex items-center gap-2 px-6 py-3 text-white transition-all duration-300 bg-green-800 rounded-full shadow-md hover:bg-yellow-400 hover:text-black hover:shadow-lg hover:scale-105"
-                  >
-                    View More
-                    <FiArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
-                  </button>
-                </div>
+            <div className="mb-6">
+              <button
+                onClick={handleViewAllProducts}
+                className="flex items-center gap-2 px-6 py-3 text-white transition-all duration-300 bg-green-800 rounded-full shadow-md hover:bg-yellow-400 hover:text-black hover:shadow-lg hover:scale-105"
+              >
+                View More
+                <FiArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
+              </button>
+            </div>
 
             {/* Products Carousel */}
             <div className="overflow-hidden">
@@ -266,7 +229,7 @@ function ProductAddedRecently() {
                         className="absolute z-10 text-green-800 transition-all duration-200 top-2 right-2 hover:text-yellow-400 hover:scale-125"
                         onClick={(e) => {
                           e.stopPropagation();
-                          toggleFavorite(product.id);
+                          handleToggleFavorite(product.id);
                         }}
                         aria-label={
                           isFavorite(product.id)
@@ -318,7 +281,7 @@ function ProductAddedRecently() {
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
-                            handleChat();
+                            handleChat(product);
                           }}
                           className="flex items-center justify-center flex-1 py-2.5 text-white transition-all duration-200 bg-green-800 rounded-full hover:bg-yellow-400 hover:text-black shadow-md hover:shadow-lg hover:scale-105"
                           aria-label="Chat with seller"
@@ -352,6 +315,56 @@ function ProductAddedRecently() {
           </div>
         )}
       </div>
+
+      <style>{`
+        @keyframes slideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes heartBeat {
+          0%,
+          100% {
+            transform: scale(1);
+          }
+          25% {
+            transform: scale(1.2);
+          }
+          50% {
+            transform: scale(1);
+          }
+        }
+
+        .animate-slideDown {
+          animation: slideDown 0.5s ease-out;
+        }
+
+        .animate-fadeIn {
+          animation: fadeIn 0.6s ease-out forwards;
+          opacity: 0;
+        }
+
+        .animate-heartBeat {
+          animation: heartBeat 0.3s ease-in-out;
+        }
+      `}</style>
     </>
   );
 }
