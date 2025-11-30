@@ -2,7 +2,7 @@ import React from 'react'
 import { FaHeart, FaRecycle, FaHandHoldingHeart, FaLeaf } from "react-icons/fa";
 import { FiHeart, FiPhone, FiArrowRight } from "react-icons/fi";
 import HandToHand from "../../../assets/HandToHand.png";
-import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
 function Hero() {
   const navigate = useNavigate();
 
@@ -61,13 +61,11 @@ function Hero() {
                     </div>
                   </div>
                 </div>
-                <button 
-                onClick={() => navigate("/categories")}
-
-                className="flex items-center gap-2 px-8 py-4 text-lg font-semibold text-white transition-all duration-300 bg-green-800 rounded-full shadow-xl hover:bg-yellow-400 hover:text-black hover:shadow-2xl hover:scale-105 group">
+    
+                <Link to="/categories" className="inline-flex items-center gap-2 px-8 py-4 text-lg font-semibold text-white transition-all duration-300 bg-green-800 rounded-full shadow-xl hover:bg-yellow-400 hover:text-black hover:shadow-2xl hover:scale-105 group">
                   Shop Now
                   <FiArrowRight className="transition-transform duration-300 group-hover:translate-x-2" />
-                </button>
+                </Link>
               </div>
     
               {/* Right Illustration */}
