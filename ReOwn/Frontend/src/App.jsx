@@ -13,11 +13,10 @@ import Product from "./Components/Product/Product";
 import ProductDetails from "./Components/Product_Details/ProductDetails";
 import Notfound from "./Components/Notfound/Notfound";
 import FavouritePage from "./Components/Favourite/Favourite";
-
+import ForgetPassword from "./Components/ForgetPassword/ForgetPassword";
 import { AuthProvider } from "./Context/AuthContext";
 import { FavoritesProvider } from "./Components/Context/FavoritesContext";
 import ChatSystem from "./Components/ChatSystem/ChatSystem";
-import ForgetPassword from "./Components/ForgetPassword/ForgetPassword";
 
 const router = createBrowserRouter([
   {
