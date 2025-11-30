@@ -182,14 +182,17 @@ const Navbar = () => {
             </div>
 
             {/* Right Side - Add Ads Button */}
-            <div>
-              <a
-                href="/add-ads"
-                className="px-5 py-2 text-lg font-medium text-white transition bg-green-800 rounded-md whitespace-nowrap hover:bg-green-700"
-              >
-                Add Ads
-              </a>
-            </div>
+         <div>
+  {isLoggedIn ? (
+    <a
+      href="/sell"
+      className="px-5 py-2 text-lg font-medium text-white transition bg-green-800 rounded-md whitespace-nowrap hover:bg-green-700"
+    >
+      Add Ads
+    </a>
+  ) : ( <> </> )}
+</div>
+
           </div>
         </div>
       </div>

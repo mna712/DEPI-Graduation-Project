@@ -12,11 +12,12 @@ import Product from "./Components/Product/Product";
 import ProductDetails from "./Components/Product_Details/ProductDetails";
 import Notfound from "./Components/Notfound/Notfound";
 import FavouritePage from "./Components/Favourite/Favourite";
-
+import ForgetPassword from "./Components/ForgetPassword/ForgetPassword";
 import { AuthProvider } from "./Context/AuthContext";
 import { FavoritesProvider } from "./Components/Context/FavoritesContext";
 import ChatSystem from "./Components/ChatSystem/ChatSystem";
-import ForgetPassword from "./Components/ForgetPassword/ForgetPassword";
+import EditProfile from "./Components/Profile/EditProfile/EditProfile";
+import SellAd from "./Components/SellAds/SellAds";
 import Products from "./Components/Products";
 import All_Category from "./Components/All_Category";
 
@@ -35,9 +36,12 @@ const router = createBrowserRouter([
       { path: "product/:id", element: <ProductDetails /> },
       { path: "favourites", element: <FavouritePage /> },
       { path: "/chat/:productId", element: <ChatSystem /> },
+      {path:"/profile",element:<Profile/>},
+      {path:"/editPofile",element:<EditProfile/>},
+      {path:"/sell",element:<SellAd/>},
       {path:"/products",element:<Products/>},
       {path:"All_Category",element:<All_Category/>},
-      { path: "*", element: <Notfound /> },
+      { path: "*", element: <Notfound /> }
 
     ],
   },

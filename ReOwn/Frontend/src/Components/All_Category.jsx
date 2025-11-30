@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, Bell, User, ChevronRight, ChevronLeft } from "lucide-react";
+import {  ChevronRight, ChevronLeft } from "lucide-react";
 import { FaHeart } from "react-icons/fa";
 import { FiHeart, FiPhone } from "react-icons/fi";
 import { BsChatSquareDots } from "react-icons/bs";
@@ -12,7 +12,7 @@ function All_Category() {
   const [showMessage, setShowMessage] = useState({});
   const carouselRefs = useRef({});
 
-  // Categories data with products
+
   const categories = [
     {
       id: 1,
@@ -210,9 +210,7 @@ function All_Category() {
     });
   };
 
-  const handleBack = () => {
-    navigate(-1);
-  };
+  
 
   const scroll = (categoryId, direction) => {
     const container = carouselRefs.current[categoryId];

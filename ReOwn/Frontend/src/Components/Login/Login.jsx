@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../Context/AuthContext";
 
 
 export default function Login() {
+  const { login } = useAuth();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -56,10 +58,11 @@ export default function Login() {
       setTouched((prev) => ({ ...prev, [key]: true }));
     });
 
-    // Check if there are errors
     const hasErrors = Object.values(errors).some((error) => error);
     if (hasErrors) return;
+        const demoToken = "xyz123";
 
+  login(demoToken);
     setIsSubmitting(true);
     await new Promise((resolve) => setTimeout(resolve, 1500));
     alert("✅ Login successful! (Demo)");
