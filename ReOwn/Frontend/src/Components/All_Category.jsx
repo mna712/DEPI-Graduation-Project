@@ -12,7 +12,7 @@ function All_Category() {
   const [showMessage, setShowMessage] = useState({});
   const carouselRefs = useRef({});
 
-  // Categories data with products
+
   const categories = [
     {
       id: 1,
