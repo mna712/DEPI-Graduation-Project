@@ -4,4 +4,4 @@ const favouriteSchema = new mongoose.Schema({
   productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product", required: true },
 });
 
- export const Favourite = mongoose.model("Favourite", favouriteSchema);
+export const Favourite = mongoose.model("Favourite", favouriteSchema);

@@ -17,7 +17,7 @@ import FavouritePage from "./Components/Favourite/Favourite";
 import AddAds from "./Components/AddAds/AddAds";
 import Checkout from "./Components/Checkout/Checkout";
 import All_Category from "./Components/All_Category";
-import ProductRecentlyAdded from "./Components/ProductRecentlyAdded/ProductRecentlyAdded";
+import ProductRecentlyAdded from "./Components/ProductAddedRecently/ProductAddedRecently";
 
 import { AuthProvider } from "./Context/AuthContext";
 import { FavoritesProvider } from "./Components/Context/FavoritesContext";

@@ -50,11 +50,6 @@ required: true,
 maxlength: 15,
 
    },
-    address: {
-      type: String,
-      minlength: 5,
-      maxlength: 40,
-    },
     deleted_at: { type: Date, default: null },
     image:{
       type: String,
