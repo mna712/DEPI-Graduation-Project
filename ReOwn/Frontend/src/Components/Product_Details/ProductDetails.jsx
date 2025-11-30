@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { GoArrowLeft } from "react-icons/go";
 import { ChevronLeft, ChevronRight, MapPin } from "lucide-react";
 import { FaHeart } from "react-icons/fa";
 import { FiHeart, FiPhone } from "react-icons/fi";
 import { BsChatSquareDots } from "react-icons/bs";
-import { useFavorites } from "../context/FavoritesContext";
+import { useFavorites } from "../Context/FavoritesContext";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const { toggleFavorite, isFavorite } = useFavorites();
   const [product, setProduct] = useState(null);
   const [relatedProducts, setRelatedProducts] = useState([]);
@@ -137,6 +138,12 @@ const ProductDetails = () => {
     console.log("Product ID from URL:", id);
     loadProductData();
   }, [id]);
+
+  useEffect(() => {
+    if (location.state?.showAlert) {
+      alert("Ad posted successfully!");
+    }
+  }, [location.state]);
 
   const loadProductData = async () => {
     setLoading(true);

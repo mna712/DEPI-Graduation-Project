@@ -138,26 +138,13 @@ function ProductAddedRecently() {
       const handleProductClick = (productId) => {
         console.log("Product clicked:", productId);
       };
-    
-      const handleCategoryClick = (categoryId) => {
-        console.log("Category clicked:", categoryId);
-      };
+
     
       const handleViewAllProducts = () => {
         console.log("View all products");
       };
     
-      const nextSlide = () => {
-        if (currentIndex < products.length - itemsPerPage) {
-          setCurrentIndex((prev) => prev + 1);
-        }
-      };
-    
-      const prevSlide = () => {
-        if (currentIndex > 0) {
-          setCurrentIndex((prev) => prev - 1);
-        }
-      };
+
     
       const visibleProducts = products.slice(
         currentIndex,

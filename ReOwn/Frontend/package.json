@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.1.0",
+    "@radix-ui/react-select": "^2.2.6",
     "axios": "^1.13.2",
     "flowbite": "^4.0.1",
     "flowbite-react": "^0.12.10",
