@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import CategoriesSection from "./CategoriesLink/CategoriesSection";
 import Hero from "./Hero/Hero";
 import ProductAddedRecently from "./ProductAddedRecently/ProductAddedRecently";

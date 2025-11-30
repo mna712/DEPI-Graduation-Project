@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight, MapPin } from "lucide-react";
 import { FaHeart } from "react-icons/fa";
 import { FiHeart, FiPhone } from "react-icons/fi";
 import { BsChatSquareDots } from "react-icons/bs";
-import { useFavorites } from "../context/FavoritesContext";
+import { useFavorites } from "../Context/FavoritesContext";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -37,7 +37,7 @@ const ProductDetails = () => {
         avatar: "https://i.pravatar.cc/150?img=12",
         location: "Cairo, Egypt",
       },
-      categoryId: 1,
+      categoryId: 1
     },
     {
       id: 2,

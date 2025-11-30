@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, Bell, User, ChevronRight, ChevronLeft } from "lucide-react";
+import {  ChevronRight, ChevronLeft } from "lucide-react";
 import { FaHeart } from "react-icons/fa";
 import { FiHeart, FiPhone } from "react-icons/fi";
 import { BsChatSquareDots } from "react-icons/bs";

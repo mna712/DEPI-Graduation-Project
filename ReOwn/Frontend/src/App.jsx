@@ -34,7 +34,8 @@ const router = createBrowserRouter([
       { path: "product/:id", element: <ProductDetails /> },
       { path: "favourites", element: <FavouritePage /> },
       { path: "/chat/:productId", element: <ChatSystem /> },
-      { path: "*", element: <Notfound /> },
+      {path:"/profile",element:<Profile/>},
+      { path: "*", element: <Notfound /> }
     ],
   },
 ]);
