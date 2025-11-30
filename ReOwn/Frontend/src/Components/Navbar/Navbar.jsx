@@ -1,8 +1,10 @@
 
 import React, { useState } from "react";
 import { IoMdSearch } from "react-icons/io";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FaCaretDown, FaHeart, FaBell } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { MdClose } from "react-icons/md";
 import { useAuth } from "../../Context/AuthContext";
@@ -74,13 +76,14 @@ const Navbar = () => {
                 >
                   <FaBell />
                 </a>
-                <a href="/profile" className="transition rounded-full hover:opacity-80" title="Profile">
-                  <img
-                    src="/images/Logo_Img.png"
-                    alt="Profile"
-                    className="w-10 h-10 border-2 border-green-800 rounded-full"
-                  />
-                </a>
+              <Link
+  to="/profile"
+  className="p-2 text-2xl text-green-800 transition rounded-full hover:bg-green-100"
+  title="Profile"
+>
+ <FontAwesomeIcon icon={faUser} className="text-2xl" />
+</Link>
+
               </div>
             ) : (
               // Login / SignUp - Hidden on small screens

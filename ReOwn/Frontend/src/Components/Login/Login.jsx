@@ -62,16 +62,14 @@ export default function Login() {
     if (hasErrors) return;
         const demoToken = "xyz123";
 
-  login(demoToken);
+    login(demoToken);
     setIsSubmitting(true);
     await new Promise((resolve) => setTimeout(resolve, 1500));
-    alert("✅ Login successful! (Demo)");
-    setIsSubmitting(false);
+    alert("✅ Login successful!");
+    setIsSubmitting(false);    
   };
 
-  const navigateToSignup = () => {
-    navigate("/signup");
-  };
+
 
   return (
     <div className="flex items-center justify-center min-h-screen p-4 overflow-hidden bg-gradient-to-br from-green-50 via-white to-yellow-50">
