@@ -6,7 +6,6 @@ import { FaHeart } from "react-icons/fa";
 import { FiHeart, FiPhone } from "react-icons/fi";
 import { BsChatSquareDots } from "react-icons/bs";
 import { useFavorites } from "../Context/FavoritesContext";
-import { useFavorites } from "../Context/FavoritesContext";
 
 const ProductDetails = () => {
   const { id } = useParams();
