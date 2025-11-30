@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FiHeart, FiPhone, FiArrowRight } from "react-icons/fi";
 import { BsChatSquareDots } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
 function ProductAddedRecently() {
     const [favorites, setFavorites] = useState([]);
@@ -9,6 +10,8 @@ function ProductAddedRecently() {
       const [loading, setLoading] = useState(true);
       const [currentIndex, setCurrentIndex] = useState(0);
       const [itemsPerPage, setItemsPerPage] = useState(4);
+       const navigate = useNavigate();
+
     
       // Mock Recently Added Products
       const MOCK_PRODUCTS = [
@@ -88,7 +91,6 @@ function ProductAddedRecently() {
           setItemsPerPage(1);
         }
       };
-    
       const loadProducts = async () => {
         setLoading(true);
         try {
@@ -131,8 +133,9 @@ function ProductAddedRecently() {
         alert("Calling seller...");
       };
     
-      const handleChat = () => {
+      const handleChat = (product) => {
         alert("Opening chat...");
+         navigate(`/chat/${product.id}`)
       };
     
       const handleProductClick = (productId) => {
@@ -145,6 +148,7 @@ function ProductAddedRecently() {
     
       const handleViewAllProducts = () => {
         console.log("View all products");
+        navigate("/products")
       };
     
       const nextSlide = () => {
@@ -318,7 +322,7 @@ function ProductAddedRecently() {
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
-                            handleChat();
+                            handleChat(product);
                           }}
                           className="flex items-center justify-center flex-1 py-2.5 text-white transition-all duration-200 bg-green-800 rounded-full hover:bg-yellow-400 hover:text-black shadow-md hover:shadow-lg hover:scale-105"
                           aria-label="Chat with seller"

@@ -4,7 +4,6 @@ import "./App.css";
 import Navbar from "./Components/Navbar/Navbar";
 import Layout from "./Components/Layout/Layout";
 import Home from "./Components/Home/Home";
-import Cart from "./Components/Cart/Cart";
 import Categories from "./Components/Categories/Categories";
 import Login from "./Components/Login/Login";
 import SignUp from "./Components/SignUp/SignUp";
@@ -18,6 +17,8 @@ import { AuthProvider } from "./Context/AuthContext";
 import { FavoritesProvider } from "./Components/Context/FavoritesContext";
 import ChatSystem from "./Components/ChatSystem/ChatSystem";
 import ForgetPassword from "./Components/ForgetPassword/ForgetPassword";
+import Products from "./Components/Products";
+import All_Category from "./Components/All_Category";
 
 const router = createBrowserRouter([
   {
@@ -25,8 +26,7 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { index: true, element: <Home /> },
-      { path: "cart", element: <Cart /> },
-      { path: "categories", element: <Categories /> },
+     { path: "categories", element: <Categories /> },
       { path: "login", element: <Login /> },
       { path: "signup", element: <SignUp /> },
       { path: "forgetPassword", element: <ForgetPassword/> },
@@ -35,7 +35,10 @@ const router = createBrowserRouter([
       { path: "product/:id", element: <ProductDetails /> },
       { path: "favourites", element: <FavouritePage /> },
       { path: "/chat/:productId", element: <ChatSystem /> },
+      {path:"/products",element:<Products/>},
+      {path:"All_Category",element:<All_Category/>},
       { path: "*", element: <Notfound /> },
+
     ],
   },
 ]);

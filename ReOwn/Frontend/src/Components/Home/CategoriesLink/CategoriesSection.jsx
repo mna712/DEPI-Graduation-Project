@@ -7,10 +7,10 @@ import {
 } from "react-icons/md";
 import { GiClothes, GiBookshelf, GiSofa } from "react-icons/gi";
 
-
+import { useNavigate } from 'react-router-dom';
 
 function CategoriesSection() {
-  
+const navigate = useNavigate();
   // Categories with icons
     const categories = [
       {
@@ -67,7 +67,9 @@ function CategoriesSection() {
             </h2>
             <p className="mt-2 text-gray-600">Explore our diverse collection</p>
           </div>
-          <button className="text-green-800 transition-colors duration-200 hover:text-yellow-600">
+          <button
+          onClick={() => navigate("/categories")}
+           className="text-green-800 transition-colors duration-200 hover:text-yellow-600 ">
             View more →
           </button>
         </div>
