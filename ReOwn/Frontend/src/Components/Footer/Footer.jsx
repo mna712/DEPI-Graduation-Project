@@ -3,7 +3,7 @@ import { Facebook, Linkedin, MessageCircle, Mail, Phone, MapPin, Instagram, Twit
 
 export default function Footer() {
   return (
-    <footer className="fixed relative overflow-hidden text-white bg-gradient-to-br from-green-900 via-green-800 to-teal-900">
+    <footer className="relative overflow-hidden text-white bg-gradient-to-br from-green-900 via-green-800 to-teal-900">
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 bg-yellow-400 rounded-full left-1/4 w-72 h-72 blur-3xl"></div>
         <div className="absolute bottom-0 bg-teal-400 rounded-full right-1/4 w-96 h-96 blur-3xl"></div>

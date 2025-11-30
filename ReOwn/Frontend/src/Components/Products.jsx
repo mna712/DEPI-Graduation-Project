@@ -1,68 +1,190 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
 import { FiHeart, FiPhone } from "react-icons/fi";
 import { BsChatSquareDots } from "react-icons/bs";
-import { useFavorites } from "./Context/FavoritesContext"; 
+import { useFavorites } from "./Context/FavoritesContext";
 
 const Products = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { toggleFavorite, isFavorite } = useFavorites(); 
+  const { toggleFavorite, isFavorite } = useFavorites();
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showMessage, setShowMessage] = useState({});
 
-  // Mock Data 
+  // Mock Data
   const MOCK_PRODUCTS = [
     {
       id: 1,
+      categoryId: 1,
       name: "iPhone 13 Pro Max - 256GB Gold Edition",
       price: "30,500 EGP",
-      image: "https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=400",
+      image:
+        "https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=400",
       sellerId: 2,
-      sellerName: "Ahmed"
+      sellerName: "Ahmed",
     },
     {
       id: 2,
+      categoryId: 1,
       name: "Samsung Galaxy S21 Ultra",
       price: "25,000 EGP",
-      image: "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=400&h=300&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=400&h=300&fit=crop",
       sellerId: 3,
-      sellerName: "Mona"
+      sellerName: "Mona",
     },
     {
       id: 3,
+      categoryId: 1,
       name: "MacBook Pro 14 inch M1 Pro",
       price: "45,000 EGP",
-      image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=300&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=300&fit=crop",
       sellerId: 4,
-      sellerName: "Omar"
+      sellerName: "Omar",
     },
     {
       id: 4,
+      categoryId: 1,
       name: "iPad Air 5th Generation",
       price: "20,000 EGP",
-      image: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400&h=300&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400&h=300&fit=crop",
       sellerId: 2,
-      sellerName: "Ahmed"
+      sellerName: "Ahmed",
     },
     {
       id: 5,
+      categoryId: 1,
       name: "AirPods Pro 2nd Generation",
       price: "8,500 EGP",
-      image: "https://images.unsplash.com/photo-1606841837239-c5a1a4a07af7?w=400&h=300&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1606841837239-c5a1a4a07af7?w=400&h=300&fit=crop",
       sellerId: 5,
-      sellerName: "Sara"
+      sellerName: "Sara",
     },
     {
       id: 6,
+      categoryId: 1,
       name: "Apple Watch Series 7 GPS",
       price: "12,000 EGP",
-      image: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400&h=300&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400&h=300&fit=crop",
       sellerId: 3,
-      sellerName: "Mona"
+      sellerName: "Mona",
+    },
+    {
+      id: 7,
+      categoryId: 2,
+      name: "Summer Dress Collection",
+      price: "1,200 EGP",
+      image:
+        "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=300&fit=crop",
+      sellerId: 3,
+      sellerName: "Mona",
+    },
+    {
+      id: 8,
+      categoryId: 2,
+      name: "Casual Shirt Premium",
+      price: "800 EGP",
+      image:
+        "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&h=300&fit=crop",
+      sellerId: 5,
+      sellerName: "Sara",
+    },
+    {
+      id: 9,
+      categoryId: 2,
+      name: "Sport Sneakers Nike",
+      price: "2,500 EGP",
+      image:
+        "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=300&fit=crop",
+      sellerId: 2,
+      sellerName: "Ahmed",
+    },
+    {
+      id: 10,
+      categoryId: 2,
+      name: "Leather Handbag",
+      price: "1,800 EGP",
+      image:
+        "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=300&fit=crop",
+      sellerId: 4,
+      sellerName: "Omar",
+    },
+    {
+      id: 11,
+      categoryId: 2,
+      name: "Classic Watch",
+      price: "3,200 EGP",
+      image:
+        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop",
+      sellerId: 3,
+      sellerName: "Mona",
+    },
+    {
+      id: 12,
+      categoryId: 3,
+      name: "Coffee Maker Deluxe",
+      price: "1,500 EGP",
+      image:
+        "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=400&h=300&fit=crop",
+      sellerId: 2,
+      sellerName: "Ahmed",
+    },
+    {
+      id: 13,
+      categoryId: 3,
+      name: "Professional Blender",
+      price: "900 EGP",
+      image:
+        "https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=400&h=300&fit=crop",
+      sellerId: 3,
+      sellerName: "Mona",
+    },
+    {
+      id: 14,
+      categoryId: 3,
+      name: "Air Fryer XL",
+      price: "2,200 EGP",
+      image:
+        "https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=400&h=300&fit=crop",
+      sellerId: 5,
+      sellerName: "Sara",
+    },
+    {
+      id: 15,
+      categoryId: 3,
+      name: "Robot Vacuum Cleaner",
+      price: "3,500 EGP",
+      image:
+        "https://images.unsplash.com/photo-1558317374-067fb5f30001?w=400&h=300&fit=crop",
+      sellerId: 2,
+      sellerName: "Ahmed",
+    },
+    {
+      id: 16,
+      categoryId: 3,
+      name: "Pressure Cooker",
+      price: "1,100 EGP",
+      image:
+        "https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=400&h=300&fit=crop",
+      sellerId: 2,
+      sellerName: "Ahmed",
+    },
+    {
+      id: 17,
+      categoryId: 3,
+      name: "Stand Mixer",
+      price: "2,800 EGP",
+      image:
+        "https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=400&h=300&fit=crop",
+      sellerId: 4,
+      sellerName: "Omar",
     },
   ];
 
@@ -112,14 +234,14 @@ const Products = () => {
   const handleChatClick = (product) => {
     console.log("Opening chat for product:", product.id);
     navigate(`/chat/${product.id}`, {
-      state: { 
+      state: {
         productId: product.id,
         productName: product.name,
         productPrice: product.price,
         productImage: product.image,
         sellerId: product.sellerId,
-        sellerName: product.sellerName
-      }
+        sellerName: product.sellerName,
+      },
     });
   };
 
@@ -142,12 +264,12 @@ const Products = () => {
 
   // Filter products by category
   const searchParams = new URLSearchParams(location.search);
-  const categoryId = searchParams.get('category');
-  
-  const filteredProducts = categoryId 
-    ? products.filter(p => p.categoryId === parseInt(categoryId))
-    : products; 
-  
+  const categoryId = searchParams.get("category");
+
+  const filteredProducts = categoryId
+    ? products.filter((p) => p.categoryId === parseInt(categoryId))
+    : products;
+
   return (
     <div className="px-4 py-8 sm:px-6 lg:px-8">
       <h3 className="mb-4 text-3xl font-bold text-green-800 transition-all duration-200 border-b-4 border-green-800 cursor-default w-36 hover:border-green-500">
