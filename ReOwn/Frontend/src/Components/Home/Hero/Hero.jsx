@@ -4,7 +4,6 @@ import { FiHeart, FiPhone, FiArrowRight } from "react-icons/fi";
 import HandToHand from "../../../assets/HandToHand.png";
 import { Link } from "react-router-dom";
 function Hero() {
-  const navigate = useNavigate();
 
   return (
     <>
