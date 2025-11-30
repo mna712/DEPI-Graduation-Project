@@ -11,13 +11,13 @@ import SignUp from "./Components/SignUp/SignUp";
 import Profile from "./Components/Profile/Profile";
 import Product from "./Components/Product/Product";
 import ProductDetails from "./Components/Product_Details/ProductDetails";
-import Footer from "./Components/Footer/Footer";
 import Notfound from "./Components/Notfound/Notfound";
 import FavouritePage from "./Components/Favourite/Favourite";
 
 import { AuthProvider } from "./Context/AuthContext";
 import { FavoritesProvider } from "./Components/Context/FavoritesContext";
 import ChatSystem from "./Components/ChatSystem/ChatSystem";
+import ForgetPassword from "./Components/ForgetPassword/ForgetPassword";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +29,7 @@ const router = createBrowserRouter([
       { path: "categories", element: <Categories /> },
       { path: "login", element: <Login /> },
       { path: "signup", element: <SignUp /> },
+      { path: "forgetPassword", element: <ForgetPassword/> },
       { path: "profile", element: <Profile /> },
       { path: "product", element: <Product /> },
       { path: "product/:id", element: <ProductDetails /> },
