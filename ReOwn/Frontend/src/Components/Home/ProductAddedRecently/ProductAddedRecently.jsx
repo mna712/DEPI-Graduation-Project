@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiHeart, FiPhone, FiArrowRight } from "react-icons/fi";
 import { BsChatSquareDots } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
 import { useFavorites } from "../../Context/FavoritesContext";
 
