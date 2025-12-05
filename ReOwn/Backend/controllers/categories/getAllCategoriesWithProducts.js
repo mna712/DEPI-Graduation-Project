@@ -10,9 +10,7 @@ export const getAllCategoriesWithItsProducts = async (req, res) => {
       const products = await Product.find({ categoryId: category._id });
 
       const productsWithImages = products.map((product) => {
-        const images = product.images.map(
-          (img) => `data:${img.contentType};base64,${img.data.toString("base64")}`
-        );
+        const images =product.images;
 
         return {
           ...product.toObject(),

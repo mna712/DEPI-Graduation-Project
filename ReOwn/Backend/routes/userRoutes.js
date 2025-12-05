@@ -5,5 +5,5 @@ import { login } from "../controllers/users/login.js";
 const Router = express.Router();
 Router.post("/signup", asyncWrapper(signup));
 Router.post("/login", asyncWrapper(login));
-Router.post("/profile",asyncWrapper())
+Router.get("/profile",asyncWrapper())
 export default Router;

@@ -1,6 +1,6 @@
-import { Product } from "../../models/productModel";
-import { Favourite } from "../../models/favouriteModel";
-
+import { Product } from "../../models/productModel.js";
+import { Favourite } from "../../models/favouriteModel.js";
+import { SUCCESS } from "../../utilities/successWords.js";
 export const getAllProducts = async (req, res) => {
     const userId = req.user._id; 
 
@@ -10,14 +10,11 @@ export const getAllProducts = async (req, res) => {
     const favSet = new Set(favourites.map((f) => f.productId.toString()));
 
     products = products.map((product) => {
-      const images = product.images.map(
-        (img) => `data:${img.contentType};base64,${img.data.toString("base64")}`
-      );
-
+      const images = product.images
       return {
         ...product.toObject(),
         images, 
-        isFavourite: favSet.has(product._id.toString())?true:false,
+        isFavourite: favSet.has(product._id.toString())
       };
     });
 

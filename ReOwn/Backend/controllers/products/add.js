@@ -14,12 +14,8 @@ export const addProduct = async (req, res) => {
       contactMethod,
     } = req.body;
 
-    const images = req.files
-      ? req.files.map((file) => ({
-          data: file.buffer,
-          contentType: file.mimetype,
-        }))
-      : [];
+  const images = req.files.map(file => `/uploads/${file.filename}`);
+
 if(!title){
   console.log('no title');
 }
@@ -75,7 +71,7 @@ if(!title){
       sellerId,
       sellerPhone,
       contactMethod,
-      images, 
+      images
     });
 
     await newProduct.save();

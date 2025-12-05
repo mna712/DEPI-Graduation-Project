@@ -1,10 +1,17 @@
-import { Category } from "../../models/categoryModel.js";
-import { SUCCESS, FAIL } from "../../utilities/successWords.js";
 export const removeCategory = async (req, res) => {
-  const id = req.user.role;
+  if (!req.user || !req.user.role) {
+    return res.status(401).json({
+      status: 401,
+      message: "Unauthorized",
+      success: FAIL,
+    });
+  }
+
+  const role = req.user.role;
   const { categoryId } = req.params;
+
   if (role !== "admin") {
-    res.status(403).json({
+    return res.status(403).json({
       status: 403,
       message: "Only admin can remove categories",
       success: FAIL,
@@ -23,11 +30,12 @@ export const removeCategory = async (req, res) => {
       success: FAIL,
     });
   }
-  category.deleted_at =  new Date();
-   await deleteImage(category.image.public_id);
+
+  category.deleted_at = new Date();
   await category.save();
-  res.status(204).json({
-    status: 204,
+
+  return res.status(200).json({
+    status: 200,
     message: "Category removed successfully",
     success: SUCCESS,
   });

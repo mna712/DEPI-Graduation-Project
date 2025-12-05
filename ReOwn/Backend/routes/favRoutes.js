@@ -6,8 +6,7 @@ import { removeFavourite } from "../controllers/favourites/remove.js";
 import { getFavouriteProducts } from "../controllers/favourites/getAll.js";
 const Router =express.Router();
 
-Router.post("/",protect, asyncWrapper(addFavourite)); 
-Router.get("/:userId",protect, asyncWrapper(getFavouriteProducts));
+Router.post("/:productId",protect, asyncWrapper(addFavourite)); 
 Router.delete("/:productId",protect, asyncWrapper(removeFavourite));
 Router.get("/",protect, asyncWrapper(getFavouriteProducts));
 

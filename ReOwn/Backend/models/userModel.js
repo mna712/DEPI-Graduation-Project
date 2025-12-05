@@ -61,9 +61,8 @@ maxlength: 15,
       default:
         "https://res.cloudinary.com/dweffiohi/image/upload/v1756798194/kxd3fv4kuoiozsglw1ry.jpg",
     },
-rate:{
-        type: Number,
-    },
+avgRate: { type: Number, default: 0 },
+rateCount: { type: Number, default: 0 },
 location :{
         type: String,
         minlength: 2,

@@ -7,5 +7,8 @@ import categoryRoutes from "./categoryRoutes.js"
 Router.use("/user", userRouter);
 Router.use("/category",categoryRoutes)
 Router.use("/product", productRouter);
-Router.use("/favourite",favRouter)
+Router.use("/favourite",favRouter);
+Router.use("/rate",rateRouter);
+
+
 export default Router;

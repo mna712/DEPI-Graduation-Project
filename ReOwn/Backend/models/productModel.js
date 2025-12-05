@@ -24,9 +24,7 @@ const productSchema = new mongoose.Schema(
     sellerPhone: { type: String, default: null },
     contactMethod: { type: String, default: null, enum: ["phone", "chat","both"] },
   images:[
-    {
-      data: Buffer,
-      contentType: String,
+    {   type:String
     }],  
     deleted_at: { type: Date, default: null },
     status: {enum: ["available","sold","pending"], type: String, default: "pending"},

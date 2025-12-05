@@ -14,18 +14,13 @@ export const getAllProductsByCategory = async (req, res) => {
       });
     }
 
-    // Convert images to Base64
     const productsWithImages = categoryProducts.map((product) => {
-      const images = product.images.map(
-        (img) => `data:${img.contentType};base64,${img.data.toString("base64")}`
-      );
-
+      const images = product.images;
       return {
         ...product.toObject(),
         images,
       };
     });
-
     return res.status(200).json({
       status: 200,
       message: "Category products fetched successfully",
