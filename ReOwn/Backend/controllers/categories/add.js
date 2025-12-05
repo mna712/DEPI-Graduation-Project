@@ -1,38 +1,22 @@
 import { Category } from "../../models/categoryModel.js";
 import { SUCCESS, FAIL } from "../../utilities/successWords.js";
-import { upload }from "../../middlewares/upload.js";
+import upload from "../../config/multer.js";
 export const addCategory = async (req, res) => {
-  try {
-    console.log("Starting addCategory...");
+   const imageUrl = `/uploads/${req.file.filename}`;
 
-    // 🔥 Debug logs
-    console.log("req.body:", req.body);
-    console.log("req.file:", req.file);
 
-    const image = await upload(req.file);
-    console.log("Uploaded image →", image);
-
+export const addCategory =async (req, res) => {
+    if (!req.file) {
+      return res.status(400).json({ message: "Image is required" });
+    }
     const category = new Category({
       ...req.body,
-      categoryImage: image?.ImgUrl,
+      categoryImage: imageUrl
     });
-
     await category.save();
-
     return res.status(201).json({
       message: "Category added successfully",
       data: category,
-      status: 201,
-      success: SUCCESS,
+      status:200
     });
-
-  } catch (err) {
-    console.error("💥 Controller Error:", err);
-
-    return res.status(500).json({
-      message: "Server error",
-      error: err.message, // <-- IMPORTANT
-      stack: err.stack,    // <-- THIS EXPOSES THE REAL ISSUE
-    });
-  }
-};
+}

@@ -3,24 +3,32 @@ import { Product } from "../../models/productModel.js";
 import { SUCCESS } from "../../utilities/successWords.js";
 
 export const getAllCategoriesWithItsProducts = async (req, res) => {
-  
     const categories = await Category.find();
-
     const result = [];
 
     for (let category of categories) {
       const products = await Product.find({ categoryId: category._id });
 
+      const productsWithImages = products.map((product) => {
+        const images = product.images.map(
+          (img) => `data:${img.contentType};base64,${img.data.toString("base64")}`
+        );
+
+        return {
+          ...product.toObject(),
+          images,
+        };
+      });
+
       result.push({
         ...category._doc,
-        products,
+        products: productsWithImages,
       });
     }
 
     return res.status(200).json({
       success: SUCCESS,
       data: result,
-      status:200
+      status: 200,
     });
- 
 };
