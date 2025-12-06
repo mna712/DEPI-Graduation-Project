@@ -9,7 +9,7 @@ import { HiMenuAlt3 } from "react-icons/hi";
 import { MdClose } from "react-icons/md";
 import { useAuth } from "../../Context/AuthContext";
 
-const Menu = [{ id: 1, name: "Home", link: "/#" }];
+const Menu = [{ id: 1, name: "Home", link: "/" }];
 
 const DropdownLinks = [
   { id: 1, name: "Home & Kitchen tools", link: "/#" },
@@ -40,10 +40,10 @@ const Navbar = () => {
     <div className="relative z-40 text-black bg-white shadow-md">
       {/* Upper Navbar */}
       <div className="py-2 bg-primary/50">
-        <div className="container flex items-center justify-between w-full px-3 mx-auto sm:px-6 lg:px-8">
+        <div className="container flex items-center justify-between w-full px-3 mx-auto sm:px-6 lg:px-8 xl:px-12">
           {/* Logo & Site Name */}
-          <a
-            href="#"
+          <Link
+            to="/"
             className="flex items-center gap-2 text-xl font-bold sm:gap-3 sm:text-2xl lg:text-3xl"
           >
             <img
@@ -52,7 +52,7 @@ const Navbar = () => {
 
             />
             <span className="whitespace-nowrap">ReOwn</span>
-          </a>
+          </Link>
 
           {/* Empty space for layout balance */}
           <div className="flex items-center justify-between gap-4"></div>
@@ -62,20 +62,20 @@ const Navbar = () => {
             {isLoggedIn ? (
               // Icons when logged in - Desktop
               <div className="items-center hidden gap-3 md:flex">
-                <a
-                  href="/favorites"
+                <Link
+                  to="/favourites"
                   className="p-2 text-2xl text-green-800 transition rounded-full hover:bg-green-100"
                   title="Favorites"
                 >
                   <FaHeart />
-                </a>
-                <a
-                  href="/notifications"
+                </Link>
+                <Link
+                  to="/notifications"
                   className="p-2 text-2xl text-green-800 transition rounded-full hover:bg-green-100"
                   title="Notifications"
                 >
                   <FaBell />
-                </a>
+                </Link>
               <Link
   to="/profile"
   className="p-2 text-2xl text-green-800 transition rounded-full hover:bg-green-100"
@@ -88,18 +88,18 @@ const Navbar = () => {
             ) : (
               // Login / SignUp - Hidden on small screens
               <div className="items-center hidden gap-2 md:flex">
-                <a
-                  href="/login"
+                <Link
+                  to="/login"
                   className="px-4 py-1 text-lg font-medium text-green-800 transition border border-green-800 rounded-full whitespace-nowrap hover:bg-green-800 hover:text-white"
                 >
                   Log In
-                </a>
-                <a
-                  href="/signup"
+                </Link>
+                <Link
+                  to="/signup"
                   className="px-4 py-1 text-lg font-medium text-white transition bg-green-800 rounded-full whitespace-nowrap hover:bg-green-700"
                 >
                   Sign Up
-                </a>
+                </Link>
               </div>
             )}
             {/* Hamburger Menu - Mobile only */}
@@ -133,34 +133,34 @@ const Navbar = () => {
             <ul className="flex items-center gap-4 xl:gap-6">
               {Menu.map((item) => (
                 <li key={item.id}>
-                  <a
-                    href={item.link}
+                  <Link
+                    to={item.link}
                     className="px-3 py-2 text-base transition xl:text-lg hover:text-secondary whitespace-nowrap"
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
 
               {/* Dropdown */}
               <li className="relative cursor-pointer group">
-                <a
-                  href="#"
+                <Link
+                  to="/categories"
                   className="flex items-center gap-1 px-3 py-2 text-base transition xl:text-lg hover:text-secondary whitespace-nowrap"
                 >
                   Categories
                   <FaCaretDown className="transition-all group-hover:rotate-180" />
-                </a>
+                </Link>
                 <div className="absolute z-50 hidden p-2 text-lg text-black rounded-md shadow-lg group-hover:block bg-textPrimary w-60">
                   <ul>
                     {DropdownLinks.map((link, idx) => (
                       <li key={link.id}>
-                        <a
-                          href={link.link}
+                        <Link
+                          to={link.link}
                           className="block p-2 text-sm transition rounded-md hover:bg-secondary"
                         >
                           {link.name}
-                        </a>
+                        </Link>
                         {idx !== DropdownLinks.length - 1 && (
                           <hr className="my-1 bg-gray-500" />
                         )}
@@ -187,12 +187,12 @@ const Navbar = () => {
             {/* Right Side - Add Ads Button */}
          <div>
   {isLoggedIn ? (
-    <a
-      href="/sell"
+    <Link
+      to="/sell"
       className="px-5 py-2 text-lg font-medium text-white transition bg-green-800 rounded-md whitespace-nowrap hover:bg-green-700"
     >
       Add Ads
-    </a>
+    </Link>
   ) : ( <> </> )}
 </div>
 
@@ -223,13 +223,13 @@ const Navbar = () => {
           <ul className="space-y-2">
             {Menu.map((item) => (
               <li key={item.id}>
-                <a
-                  href={item.link}
+                <Link
+                  to={item.link}
                   className="block px-4 py-2 transition rounded-md hover:bg-secondary/10 hover:text-secondary"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {item.name}
-                </a>
+                </Link>
               </li>
             ))}
 
@@ -258,13 +258,13 @@ const Navbar = () => {
                 <ul className="mt-2 ml-4 space-y-1">
                   {DropdownLinks.map((link) => (
                     <li key={link.id}>
-                      <a
-                        href={link.link}
+                      <Link
+                        to={link.link}
                         className="block px-4 py-2 text-sm transition rounded-md hover:bg-secondary/20 hover:text-secondary"
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         {link.name}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -275,23 +275,26 @@ const Navbar = () => {
           {isLoggedIn ? (
             // Icons when logged in - Mobile
             <div className="flex gap-3 pt-4 mt-4 border-t border-gray-200 md:hidden">
-              <a
-                href="/favorites"
+              <Link
+                to="/favourites"
                 className="flex items-center justify-center flex-1 gap-2 px-4 py-2 text-sm font-medium text-center text-green-800 transition border border-green-800 rounded-full hover:bg-green-800 hover:text-white"
+                onClick={() => setMobileMenuOpen(false)}
               >
                 <FaHeart />
                 Favorites
-              </a>
-              <a
-                href="/notifications"
+              </Link>
+              <Link
+                to="/notifications"
                 className="flex items-center justify-center flex-1 gap-2 px-4 py-2 text-sm font-medium text-center text-green-800 transition border border-green-800 rounded-full hover:bg-green-800 hover:text-white"
+                onClick={() => setMobileMenuOpen(false)}
               >
                 <FaBell />
                 Notifications
-              </a>
-              <a
-                href="/profile"
+              </Link>
+              <Link
+                to="/profile"
                 className="flex items-center justify-center flex-1 gap-2 px-4 py-2 text-sm font-medium text-center text-white transition bg-green-800 rounded-full hover:bg-green-700"
+                onClick={() => setMobileMenuOpen(false)}
               >
                 <img
                   src="/images/Logo_Img.png"
@@ -299,23 +302,25 @@ const Navbar = () => {
                   className="w-6 h-6 border-2 border-white rounded-full"
                 />
                 Profile
-              </a>
+              </Link>
             </div>
           ) : (
             // Login / SignUp - Mobile
             <div className="flex gap-3 pt-4 mt-4 border-t border-gray-200 md:hidden">
-              <a
-                href="/login"
+              <Link
+                to="/login"
                 className="flex-1 px-4 py-2 text-sm font-medium text-center text-green-800 transition border border-green-800 rounded-full hover:bg-green-800 hover:text-white"
+                onClick={() => setMobileMenuOpen(false)}
               >
                 Log In
-              </a>
-              <a
-                href="/signup"
+              </Link>
+              <Link
+                to="/signup"
                 className="flex-1 px-4 py-2 text-sm font-medium text-center text-white transition bg-green-800 rounded-full hover:bg-green-700"
+                onClick={() => setMobileMenuOpen(false)}
               >
                 Sign Up
-              </a>
+              </Link>
             </div>
           )}
         </div>

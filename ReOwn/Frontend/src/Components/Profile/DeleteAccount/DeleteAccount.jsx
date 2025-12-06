@@ -2,7 +2,7 @@
 
 import { NavLink } from "react-router-dom"
 
-function DeleteAcount({ display ,setDisplay}) {
+function DeleteAccount({ display ,setDisplay}) {
     
 
   return (
@@ -26,11 +26,11 @@ function DeleteAcount({ display ,setDisplay}) {
         <h3 className="text-lg font-semibold text-gray-800 mt-5 ms-4">Are you sure you want to delete your account ? </h3>
         <div>
         <NavLink to="edit">
-        <button class="bg-teal-600 text-white px-10 py-3 rounded-full ms-10 mt-5 ">
+        <button className="bg-teal-600 text-white px-10 py-3 rounded-full ms-10 mt-5 ">
         Cancel
         </button>
         </NavLink>
-        <button class="bg-red-600 text-white px-10 py-3 rounded-full ms-5 ">
+        <button className="bg-red-600 text-white px-10 py-3 rounded-full ms-5 ">
         Delete account
         </button>
         </div>
@@ -59,4 +59,4 @@ function DeleteAcount({ display ,setDisplay}) {
   )
 }
 
-export default DeleteAcount
+export default DeleteAccount
