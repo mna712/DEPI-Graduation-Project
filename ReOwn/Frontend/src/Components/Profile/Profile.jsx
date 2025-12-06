@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Report from "./Report/Report";
 import EditProfile from "./EditProfile/EditProfile";
-import DeleteAcount from "./DeleteAccount/DeleteAccount";
+import DeleteAccount from "./DeleteAccount/DeleteAccount";
 export default function Profile() {
+  const navigate = useNavigate();
   const [show, setShow] = useState("none");
   const [api, setApi] = useState([]);
 
@@ -34,7 +36,7 @@ export default function Profile() {
               <div className="flex flex-col items-center">
                 <img
                   className="w-24 h-24 mb-4 rounded-full object-cover border-4 border-gray-100"
-                  src="/images/OIP (3).webp"
+                  src="https://picsum.photos/150"
                   alt="profile"
                 />
 
@@ -47,9 +49,9 @@ export default function Profile() {
                 <div className="w-full space-y-3">
                   {/* EDIT PROFILE BUTTON */}
                   <button
-                    onClick={() => alert('Edit Profile clicked')}
-                    className="flex items-center justify-center w-full text-gray-700 bg-white border border-gray-300 
-                      hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200 font-medium text-sm 
+                    onClick={() => navigate('/editProfile')}
+                    className="flex items-center justify-center w-full text-gray-700 bg-white border border-gray-300
+                      hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200 font-medium text-sm
                       px-4 py-2.5 rounded-lg shadow-sm"
                   >
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -15,11 +15,13 @@ import FavouritePage from "./Components/Favourite/Favourite";
 import ForgetPassword from "./Components/ForgetPassword/ForgetPassword";
 import { AuthProvider } from "./Context/AuthContext";
 import { FavoritesProvider } from "./Components/Context/FavoritesContext";
+import { ProductsProvider } from "./Context/ProductsContext";
 import ChatSystem from "./Components/ChatSystem/ChatSystem";
 import EditProfile from "./Components/Profile/EditProfile/EditProfile";
 import SellAd from "./Components/SellAds/SellAds";
 import Products from "./Components/Products";
 import All_Category from "./Components/All_Category";
+import SearchResults from "./Components/SearchResults/SearchResults";
 
 const router = createBrowserRouter([
   {
@@ -27,22 +29,21 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { index: true, element: <Home /> },
-     { path: "categories", element: <Categories /> },
+      { path: "categories", element: <Categories /> },
       { path: "login", element: <Login /> },
       { path: "signup", element: <SignUp /> },
-      { path: "forgetPassword", element: <ForgetPassword/> },
+      { path: "forgetPassword", element: <ForgetPassword /> },
       { path: "profile", element: <Profile /> },
+      { path: "editProfile", element: <EditProfile /> },
+      { path: "sell", element: <SellAd /> },
+      { path: "products", element: <Products /> },
+      { path: "all-category", element: <All_Category /> },
+      { path: "search", element: <SearchResults /> },
       { path: "product", element: <Product /> },
       { path: "product/:id", element: <ProductDetails /> },
       { path: "favourites", element: <FavouritePage /> },
-      { path: "/chat/:productId", element: <ChatSystem /> },
-      {path:"/profile",element:<Profile/>},
-      {path:"/editPofile",element:<EditProfile/>},
-      {path:"/sell",element:<SellAd/>},
-      {path:"/products",element:<Products/>},
-      {path:"All_Category",element:<All_Category/>},
+      { path: "chat/:productId", element: <ChatSystem /> },
       { path: "*", element: <Notfound /> }
-
     ],
   },
 ]);
@@ -51,7 +52,9 @@ function App() {
   return (
     <AuthProvider>
       <FavoritesProvider>
-        <RouterProvider router={router} />
+        <ProductsProvider>
+          <RouterProvider router={router} />
+        </ProductsProvider>
       </FavoritesProvider>
     </AuthProvider>
   );

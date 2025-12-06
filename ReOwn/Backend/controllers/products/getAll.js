@@ -3,7 +3,7 @@ import { Favourite } from "../../models/favouriteModel.js";
 import { SUCCESS } from "../../utilities/successWords.js";
 export const getAllProducts = async (req, res) => {
     const userId = req.user._id; 
-
+  
     let products = await Product.find({ deleted_at: null });
 
     const favourites = await Favourite.find({ userId }).select("productId");
@@ -17,7 +17,6 @@ export const getAllProducts = async (req, res) => {
         isFavourite: favSet.has(product._id.toString())
       };
     });
-
     return res.status(200).json({
       message: "All products fetched successfully",
       data: products,

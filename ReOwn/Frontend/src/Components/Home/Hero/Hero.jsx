@@ -25,7 +25,7 @@ function Hero() {
                   </span>
                 </div>
     
-                <h1 className="text-4xl font-extrabold leading-tight text-gray-900 sm:text-5xl lg:text-6xl">
+                <h1 className="text-4xl font-extrabold leading-tight text-gray-900 sm:text-5xl lg:text-6xl xl:text-7xl">
                   Give Your Items a{" "}
                   <span className="relative">
                     <span className="relative z-10 text-green-800">New Home</span>
