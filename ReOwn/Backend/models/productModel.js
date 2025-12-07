@@ -23,11 +23,12 @@ const productSchema = new mongoose.Schema(
     sellerId: { type: mongoose.Schema.Types.ObjectId, ref: "User", default: null },
     sellerPhone: { type: String, default: null },
     contactMethod: { type: String, default: null, enum: ["phone", "chat","both"] },
-  images:[
-    {   type:String
-    }],  
+  images:[{
+  url: { type: String, required: true },
+  public_id: { type: String, required: true }
+}],  
     deleted_at: { type: Date, default: null },
-    status: {enum: ["available","sold","pending"], type: String, default: "pending"},
+    status: {enum: ["available","sold","pending","approved","rejected"], type: String, default: "pending"},
     isFavourite:{
         type:Boolean
     }

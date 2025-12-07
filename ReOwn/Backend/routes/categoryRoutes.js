@@ -7,9 +7,9 @@ import { getAllProductsByCategory } from "../controllers/categories/getCategoryP
 import { getAllCategoriesWithItsProducts } from "../controllers/categories/getAllCategoriesWithProducts.js";
 import { removeCategory } from "../controllers/categories/remove.js";
 import { authorizeRoles } from "../middlewares/authRole.js";
-import upload from "../config/multer.js";
-const Router = express.Router();
-Router.post("/", protect,authorizeRoles("admin"),upload.single("image"), asyncWrapper(addCategory));
+import { uploadCloudFile, filevalidation } from "../utilities/multer/cloud.multer.js";
+const Router =express.Router();
+Router.post("/", protect,authorizeRoles("admin"),uploadCloudFile(filevalidation.images).single("image"), asyncWrapper(addCategory));
 Router.get("/", protect,asyncWrapper(getAllCategories));
 Router.get("/products", protect, asyncWrapper(getAllCategoriesWithItsProducts));
 Router.get("/:categoryId",protect, asyncWrapper(getAllProductsByCategory));

@@ -4,7 +4,7 @@ import express from "express";
 import cors from "cors";
 import dbConnect from "./config/dbConnection.js";
 import Router from "./routes/index.js";
-import path from "path"
+import path from "path";
 const app = express();
 const PORT = process.env.PORT;
 app.use(express.urlencoded({ extended: true }));

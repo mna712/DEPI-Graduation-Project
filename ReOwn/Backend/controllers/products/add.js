@@ -1,6 +1,7 @@
 import { FAIL } from "../../utilities/successWords.js";
 import { Category } from "../../models/categoryModel.js";
 import { Product } from "../../models/productModel.js";
+import cloudinary from "../../utilities/multer/cloudinary.config.js";
 export const addProduct = async (req, res) => {
     const sellerId = req.user._id;
     const {
@@ -14,8 +15,20 @@ export const addProduct = async (req, res) => {
       contactMethod,
     } = req.body;
 
-  const images = req.files.map(file => `/uploads/${file.filename}`);
+       // Upload all images
+    const images = [];
 
+    for (const file of req.files) {
+      const { public_id, secure_url } = await cloudinary.uploader.upload(
+        file.path,
+        { folder: "ReOwn/products" }
+      );
+
+      images.push({
+        url: secure_url,
+        public_id: public_id
+      });
+    }
 if(!title){
   console.log('no title');
 }

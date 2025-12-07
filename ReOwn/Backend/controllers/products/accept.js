@@ -1,14 +1,15 @@
+
 import { SUCCESS, FAIL } from "../../utilities/successWords.js";
 import { Product } from "../../models/productModel.js";
 import { Category } from "../../models/categoryModel.js";
 import { User } from "../../models/userModel.js";
-export const updateProduct = async (req, res) => {
+//admin only can do that
+export const acceptProduct = async (req, res) => {
   const { id } = req.params;
-  const userId=req.user._id;
-  const updates = req.body;
-  const user =User.findById(userId);
+  const role=req.user.role;
+  const {status}=req.body
   
-  const product = await Product.findOne({ _id: id, deleted_at: null });
+const product = await Product.findOne({ _id: id, deleted_at: null });
 
   if (!product) {
     return res.status(404).json({
@@ -17,7 +18,8 @@ export const updateProduct = async (req, res) => {
       status: 404,
     });
   }
-   if( product.sellerId != userId) return res.status(401).json({
+
+   if(role!='admin') return res.status(401).json({
      message:"you are not allowed to update this product",
       status:401
    })
@@ -73,6 +75,7 @@ export const updateProduct = async (req, res) => {
       });
     }
   }
+
   if (
     updates.location &&
     (updates.location.length < 2 || updates.location.length > 100)
