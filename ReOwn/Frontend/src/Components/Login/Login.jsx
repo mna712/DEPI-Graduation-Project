@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 
 export default function Login() {
@@ -60,13 +62,23 @@ export default function Login() {
 
     const hasErrors = Object.values(errors).some((error) => error);
     if (hasErrors) return;
-        const demoToken = "xyz123";
 
-    login(demoToken);
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    alert("✅ Login successful!");
-    setIsSubmitting(false);    
+    try {
+      const response = await axios.post('http://localhost:3000/api/user/login', {
+        email: formData.email,
+        password: formData.password,
+      });
+      const token = response.data.token; // Assuming the response has a token field
+      login(token);
+      toast.success("Login successful!");
+      navigate("/"); // Navigate to home after successful login
+    } catch (error) {
+      console.error("Login failed:", error);
+      alert("❌ Login failed. Please check your credentials.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
 

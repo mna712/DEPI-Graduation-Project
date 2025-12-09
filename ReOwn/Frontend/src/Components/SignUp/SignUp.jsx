@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 
 
@@ -85,7 +86,8 @@ export default function SignUp() {
 
     setIsSubmitting(true);
     await new Promise((resolve) => setTimeout(resolve, 1500));
-    alert("✅ Signup successful! (Demo)");
+    toast.success("Signup successful! (Demo)");
+    navigate("/login");
     setIsSubmitting(false);
   };
 
