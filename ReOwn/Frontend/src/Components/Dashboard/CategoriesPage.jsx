@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Trash2, Edit, Plus, X } from 'lucide-react';
-import Sidebar from './Sidebar';
+// import Sidebar from './Sidebar';
 
 const CategoriesPage = () => {
   const [showAddForm, setShowAddForm] = useState(false);
