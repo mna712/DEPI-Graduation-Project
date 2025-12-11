@@ -1,7 +1,7 @@
 import { SUCCESS, FAIL } from "../../utilities/successWords.js";
-import User from "../../models/userModel.js";
-import Product from "../../models/productModel.js";
-import Category from "../../models/categoryModel.js";
+import { User } from "../../models/userModel.js";
+import { Product } from "../../models/productModel.js";
+import { Category } from "../../models/categoryModel.js";
 
 export const getStats = async (req, res) => {
   try {

@@ -2,11 +2,11 @@ import { SUCCESS, FAIL } from "../../utilities/successWords.js";
 import { Product } from "../../models/productModel.js";
 import { Category } from "../../models/categoryModel.js";
 import { User } from "../../models/userModel.js";
+import cloudinary from "../../utilities/multer/cloudinary.config.js";
 export const updateProduct = async (req, res) => {
   const { id } = req.params;
-  const userId=req.user._id;
+  const userId = req.user._id;
   const updates = req.body;
-  const user =User.findById(userId);
   
   const product = await Product.findOne({ _id: id, deleted_at: null });
 
@@ -17,17 +17,22 @@ export const updateProduct = async (req, res) => {
       status: 404,
     });
   }
-   if( product.sellerId != userId) return res.status(401).json({
-     message:"you are not allowed to update this product",
-      status:401
-   })
+  
+  if (product.sellerId.toString() !== userId.toString()) {
+    return res.status(403).json({
+      message: "you are not allowed to update this product",
+      status: 403,
+      success: FAIL
+    });
+  }
 
-   if(product.status=='available'){
-    return res.status(401).json({
-      status:401,
-      message:"you are not allowed to accept product"
-    })
-   }
+  if (product.status === 'sold') {
+    return res.status(400).json({
+      status: 400,
+      message: "you cannot update a sold product",
+      success: FAIL
+    });
+  }
 
   if (
     updates.title &&
@@ -112,14 +117,29 @@ export const updateProduct = async (req, res) => {
 
       let newImages = [];
       for (const file of req.files) {
-        const result = await cloudinary.uploader.upload(file.path, {
-          folder: "ReOwn/products",
-        });
+        try {
+          const uploadResult = await new Promise((resolve, reject) => {
+            const uploadStream = cloudinary.uploader.upload_stream(
+              { folder: "ReOwn/products" },
+              (error, result) => {
+                if (error) reject(error);
+                else resolve(result);
+              }
+            );
+            uploadStream.end(file.buffer);
+          });
 
-        newImages.push({
-          url: result.secure_url,
-          public_id: result.public_id,
-        });
+          newImages.push({
+            url: uploadResult.secure_url,
+            public_id: uploadResult.public_id,
+          });
+        } catch (uploadError) {
+          console.error("Error uploading image:", uploadError);
+          return res.status(500).json({
+            message: "Error uploading images: " + uploadError.message,
+            success: FAIL
+          });
+        }
       }
 
       product.images = newImages;

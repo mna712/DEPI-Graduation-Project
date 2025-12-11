@@ -31,8 +31,15 @@ export const ProductsProvider = ({ children }) => {
             Authorization: `Bearer ${token}`
           }
         };
-        const response = await axios.get('http://localhost:3000/api/products', config);
-        setProducts(response.data);
+        const response = await axios.get('http://localhost:3000/api/product', config);
+        // Handle different response structures
+        if (response.data?.data) {
+          setProducts(Array.isArray(response.data.data) ? response.data.data : []);
+        } else if (Array.isArray(response.data)) {
+          setProducts(response.data);
+        } else {
+          setProducts(MOCK_PRODUCTS);
+        }
       } else {
         // Use mock data if no token
         setProducts(MOCK_PRODUCTS);

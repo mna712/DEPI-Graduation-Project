@@ -2,8 +2,10 @@ import express from "express";
 import asyncWrapper from "../middlewares/asyncWrapper.js";
 import { signup } from "../controllers/users/signup.js"; 
 import { login } from "../controllers/users/login.js";
+import { getProfile } from "../controllers/users/profile.js";
+import { protect } from "../middlewares/auth.js";
 const Router = express.Router();
 Router.post("/signup", asyncWrapper(signup));
 Router.post("/login", asyncWrapper(login));
-Router.get("/profile",asyncWrapper())
+Router.get("/profile", protect, getProfile);
 export default Router;

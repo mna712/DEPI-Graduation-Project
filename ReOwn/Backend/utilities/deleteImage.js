@@ -1,4 +1,4 @@
-import cloudinary from "../config/multer.js";
+import cloudinary from "./multer/cloudinary.config.js";
 
 export const deleteImage = async (public_id) => {
   try {

@@ -83,9 +83,15 @@ export default function Login() {
       return;
     }
 
-    login(token); 
+    login(token, role); 
     toast.success("Login successful!");
-    navigate("/");
+    
+    // Redirect based on role
+    if (role === 'admin') {
+      navigate("/dashboard");
+    } else {
+      navigate("/");
+    }
   }
 } 
 catch (error) {

@@ -31,6 +31,7 @@ import UserManagement from "./Components/Dashboard/UserManagement";
 import Reports from "./Components/Dashboard/Report";
 import DashboardLayout from "./Components/Dashboard/Dashboardlayout";
 import ForgetPassword from "./Components/ForgetPassword/ForgetPassword";
+import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -47,12 +48,31 @@ const router = createBrowserRouter([
       { path: "product/:id", element: <ProductDetails /> },
       { path: "favourites", element: <FavouritePage /> },
       { path: "chat/:productId", element: <ChatSystem /> },
-      { path: "dashboard", element: <Overview /> },
-      { path: "dashboard/products", element: <ProductsPage /> },
-      { path: "dashboard/categories", element: <CategoriesPage /> },
-      { path: "dashboard/users", element: <UserManagement /> },
-      { path: "dashboard/reports", element: <Reports /> },
-      {path:"dashboard/layout",element :<DashboardLayout/>},
+      { path: "sell", element: <SellAd /> },
+      { 
+        path: "dashboard", 
+        element: <ProtectedRoute requireAdmin={true}><Overview /></ProtectedRoute> 
+      },
+      { 
+        path: "dashboard/products", 
+        element: <ProtectedRoute requireAdmin={true}><ProductsPage /></ProtectedRoute> 
+      },
+      { 
+        path: "dashboard/categories", 
+        element: <ProtectedRoute requireAdmin={true}><CategoriesPage /></ProtectedRoute> 
+      },
+      { 
+        path: "dashboard/users", 
+        element: <ProtectedRoute requireAdmin={true}><UserManagement /></ProtectedRoute> 
+      },
+      { 
+        path: "dashboard/reports", 
+        element: <ProtectedRoute requireAdmin={true}><Reports /></ProtectedRoute> 
+      },
+      {
+        path: "dashboard/layout",
+        element: <ProtectedRoute requireAdmin={true}><DashboardLayout /></ProtectedRoute>
+      },
       { path: "*", element: <Notfound /> }
     ],
   },
