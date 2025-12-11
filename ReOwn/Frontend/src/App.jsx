@@ -30,6 +30,7 @@ import CategoriesPage from "./Components/Dashboard/CategoriesPage";
 import UserManagement from "./Components/Dashboard/UserManagement";
 import Reports from "./Components/Dashboard/Report";
 import DashboardLayout from "./Components/Dashboard/Dashboardlayout";
+import ForgetPassword from "./Components/ForgetPassword/ForgetPassword";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,7 @@ const router = createBrowserRouter([
       { path: "categories", element: <Categories /> },
       { path: "login", element: <Login /> },
       { path: "signup", element: <SignUp /> },
+      { path: "/forgetpassword", element: <ForgetPassword /> },
       { path: "profile", element: <Profile /> },
       { path: "product", element: <Product /> },
       { path: "product/:id", element: <ProductDetails /> },

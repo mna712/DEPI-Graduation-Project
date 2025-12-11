@@ -298,7 +298,7 @@ finally {
               <div className="text-right animate-fadeInUp animation-delay-500">
                 <button
                   type="button"
-                  onClick={() => navigate("/forgetPassword")}
+                  onClick={() => navigate("/forgetpassword")}
                   className="text-sm font-semibold text-green-600 transition-all hover:text-green-700 hover:underline"
                 >
                   Forgot password?
