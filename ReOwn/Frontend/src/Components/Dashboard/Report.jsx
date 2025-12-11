@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Download, FileText } from 'lucide-react';
-
+import DashboardLayout from './Dashboardlayout';
 export default function Reports() {
   const [sortOrder, setSortOrder] = useState('newest');
   const [searchQuery, setSearchQuery] = useState('');
@@ -54,14 +54,9 @@ export default function Reports() {
     });
 
   return (
-<<<<<<< HEAD
-    <div className="min-h-screen bg-gray-50 p-4 sm:p-6 lg:p-8">
-      <div className="max-w-5xl mx-auto">
-=======
     <DashboardLayout>
       <div className="p-4 sm:p-6 lg:p-8">
         <div className="max-w-5xl mx-auto">
->>>>>>> 8310b9d6 (updating)
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800">
@@ -161,11 +156,6 @@ export default function Reports() {
         </div>
       </div>
     </div>
-<<<<<<< HEAD
-  );
-}
-=======
     </DashboardLayout>
   );
 }
->>>>>>> 8310b9d6 (updating)
