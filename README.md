@@ -1,9 +1,4 @@
 # DEPI-Graduation-Project
-Here is a **clean, professional, GitHub-ready README.md** with a proper **Tech Stack** section and correct Markdown formatting (##, ###, code blocks…).
-
-You can copy/paste this directly into your `README.md` file.
-
----
 
 # ReOwn
 
