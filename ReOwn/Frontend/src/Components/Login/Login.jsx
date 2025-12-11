@@ -64,21 +64,62 @@ export default function Login() {
     if (hasErrors) return;
 
     setIsSubmitting(true);
-    try {
-      const response = await axios.post('http://localhost:3000/api/user/login', {
-        email: formData.email,
-        password: formData.password,
-      });
-      const token = response.data.token; // Assuming the response has a token field
-      login(token);
-      toast.success("Login successful!");
-      navigate("/"); // Navigate to home after successful login
-    } catch (error) {
-      console.error("Login failed:", error);
-      alert("❌ Login failed. Please check your credentials.");
-    } finally {
-      setIsSubmitting(false);
+  try {
+  const response = await axios.post(
+    "http://localhost:3000/api/user/login",
+    {
+      email: formData.email,
+      password: formData.password,
     }
+  );
+
+
+  if (response.status === 200) {
+    const token = response.data?.data?.token;
+    const role = response.data?.data?.role;
+
+    if (!token) {
+      alert("❌ Token not received from server!");
+      return;
+    }
+
+    login(token); 
+    toast.success("Login successful!");
+    navigate("/");
+  }
+} 
+catch (error) {
+  if (error.response) {
+    const { status, message } = error.response.data;
+
+    if (status === 400) {
+      alert("⚠️ " + message); 
+    }
+    else if (status === 401) {
+      alert("❌ Incorrect password.");
+    }
+    else if (status === 404) {
+      alert("❌ User not found.");
+    }
+    else {
+      alert("❌ Server error: " + message);
+    }
+  }
+
+  else if (error.request) {
+    alert("❌ Cannot reach server. Check connection or backend URL.");
+  }
+
+  else {
+    alert("❌ Unexpected error occurred.");
+  }
+
+  console.error("Login failed:", error);
+}
+finally {
+  setIsSubmitting(false);
+}
+
   };
 
 

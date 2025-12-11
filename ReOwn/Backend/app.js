@@ -6,13 +6,16 @@ import dbConnect from "./config/dbConnection.js";
 import Router from "./routes/index.js";
 
 const app = express();
+const PORT = process.env.PORT;
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-dbConnect();
-
 app.use("/api", Router);
 
-export default app;
+dbConnect()
+  .then(() => {
+    app.listen(PORT, () => console.log("Server running on", PORT));
+  })
+  .catch(console.log);

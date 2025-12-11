@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-
-
+import axios from "axios";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
@@ -71,25 +70,55 @@ export default function SignUp() {
     setErrors((prev) => ({ ...prev, [name]: error }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    // Validate all fields
-    Object.keys(formData).forEach((key) => {
-      validateField(key, formData[key]);
-      setTouched((prev) => ({ ...prev, [key]: true }));
-    });
+  Object.keys(formData).forEach((key) => {
+    validateField(key, formData[key]);
+    setTouched((prev) => ({ ...prev, [key]: true }));
+  });
 
-    // Check if there are errors
-    const hasErrors = Object.values(errors).some((error) => error);
-    if (hasErrors) return;
+  const hasErrors = Object.values(errors).some((error) => error);
+  if (hasErrors) return;
 
-    setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    toast.success("Signup successful! (Demo)");
-    navigate("/login");
-    setIsSubmitting(false);
-  };
+  setIsSubmitting(true);
+
+  try {
+    const response = await axios.post(
+      "http://localhost:3000/api/user/signup",{
+      firstName:formData.firstName,
+      lastName:formData.lastName,
+      phone:formData.lastName,
+      email:formData.email,
+      password:formData.password
+      }
+    );
+
+    if (response.status === 201) {
+      toast.success("Account created successfully!");
+      navigate("/login");
+    }
+  } 
+  catch (error) {
+
+    if (error.response) {
+      const { message } = error.response.data;
+
+      toast.error(message || "Signup failed");
+    } 
+    else if (error.request) {
+      toast.error("Cannot reach server. Please try again later.");
+    } 
+    else {
+      toast.error("Unexpected error occurred.");
+    }
+
+    console.error("Signup error:", error);
+  }
+
+  setIsSubmitting(false);
+};
+
 
   return (
     <div className="flex items-center justify-center min-h-screen p-4 overflow-hidden bg-gradient-to-br from-green-50 via-white to-yellow-50">
