@@ -193,7 +193,7 @@ const handleSubmit = async (e) => {
                   <input
                     name="firstName"
                     type="text"
-                    placeholder="John"
+                    placeholder="menna"
                     className={`w-full px-4 py-3 rounded-xl border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-500 ${
                       touched.firstName && errors.firstName
                         ? "border-red-400 bg-red-50"

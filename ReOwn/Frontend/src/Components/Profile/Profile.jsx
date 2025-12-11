@@ -41,9 +41,9 @@ export default function Profile() {
                 />
 
                 <h5 className="mb-1 text-xl font-semibold text-gray-900">
-                  John Smith
+                  Menna Elgharabawii
                 </h5>
-                <span className="text-sm text-gray-600 mb-6">Johnsmith@gmail.com</span>
+                <span className="text-sm text-gray-600 mb-6">mennaelgharabawii@gmail.com</span>
 
                 {/* BUTTONS */}
                 <div className="w-full space-y-3">

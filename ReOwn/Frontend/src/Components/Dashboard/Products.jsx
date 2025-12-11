@@ -9,7 +9,7 @@ const ProductsPage = () => {
       name: "iPhone 15 Pro",
       price: "1500 EGP",
       category: "Electronics",
-      seller: "John Smith",
+      seller: "Menna Elgharabawii",
       status: "Active",
       image: "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=150&h=150&fit=crop",
       created: "2024-01-15"
@@ -19,7 +19,7 @@ const ProductsPage = () => {
       name: "MacBook Pro M3",
       price: "2500 EGP",
       category: "Electronics",
-      seller: "Sarah Johnson",
+      seller: "Somaya Medhat",
       status: "Active",
       image: "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=150&h=150&fit=crop",
       created: "2024-01-14"
@@ -29,7 +29,7 @@ const ProductsPage = () => {
       name: "Nike Air Max",
       price: "300 EGP",
       category: "Fashion",
-      seller: "Mike Wilson",
+      seller: "Hana Elsayed",
       status: "Sold",
       image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=150&h=150&fit=crop",
       created: "2024-01-13"

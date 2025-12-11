@@ -4,21 +4,18 @@ import Product from "../../models/productModel.js";
 
 export const getRecentActivities = async (req, res) => {
   try {
-    // Get recent products (last 5)
+
     const recentProducts = await Product.find()
       .sort({ createdAt: -1 })
       .limit(5)
       .populate('userId', 'name');
 
-    // Get recent users (last 5)
     const recentUsers = await User.find()
       .sort({ createdAt: -1 })
       .limit(5);
 
-    // Combine and format activities
     const activities = [];
 
-    // Add product activities
     recentProducts.forEach(product => {
       activities.push({
         id: `product-${product._id}`,
@@ -29,7 +26,6 @@ export const getRecentActivities = async (req, res) => {
       });
     });
 
-    // Add user activities
     recentUsers.forEach(user => {
       activities.push({
         id: `user-${user._id}`,
@@ -40,7 +36,6 @@ export const getRecentActivities = async (req, res) => {
       });
     });
 
-    // Sort by date (most recent first) and limit to 10
     activities.sort((a, b) => new Date(b.date) - new Date(a.date));
     const limitedActivities = activities.slice(0, 10);
 

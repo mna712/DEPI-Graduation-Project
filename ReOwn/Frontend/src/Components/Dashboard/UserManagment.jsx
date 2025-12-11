@@ -5,8 +5,8 @@ const UserManagement = () => {
   const [users, setUsers] = useState([
     {
       id: 1,
-      name: "John Smith",
-      email: "john.smith@gmail.com",
+      name: "Menna Elgharabawii",
+      email: "mennaelgharabawii@gmail.com",
       role: "User",
       status: "Active",
       warning: true,
@@ -14,8 +14,8 @@ const UserManagement = () => {
     },
     {
       id: 2,
-      name: "Sarah Johnson",
-      email: "sarah.johnson@gmail.com",
+      name: "Somaya Medhat",
+      email: "somaya@gmail.com",
       role: "User",
       status: "Active",
       warning: true,
@@ -23,8 +23,8 @@ const UserManagement = () => {
     },
     {
       id: 3,
-      name: "Mike Wilson",
-      email: "mike.wilson@gmail.com",
+      name: "Mariam Mohamed",
+      email: "mariam.com",
       role: "Moderator",
       status: "Active",
       warning: false,
@@ -32,8 +32,8 @@ const UserManagement = () => {
     },
     {
       id: 4,
-      name: "Emma Davis",
-      email: "emma.davis@gmail.com",
+      name: "Ahmed Elsayed",
+      email: "ahmed@gmail.com",
       role: "User",
       status: "Active",
       warning: true,

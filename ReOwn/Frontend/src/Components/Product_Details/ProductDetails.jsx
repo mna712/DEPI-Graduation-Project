@@ -34,7 +34,7 @@ const MOCK_PRODUCTS = [
       "https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=600&h=600&fit=crop",
     ],
     seller: {
-      name: "John Smith",
+      name: "Hana Elsendy",
       avatar: "https://i.pravatar.cc/150?img=12",
       location: "Cairo, Egypt",
     },
@@ -53,7 +53,7 @@ const MOCK_PRODUCTS = [
       "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&h=600&fit=crop",
     ],
     seller: {
-      name: "Sarah Ahmed",
+      name: "Ahmed Elsayed" ,
       avatar: "https://i.pravatar.cc/150?img=25",
       location: "Alexandria, Egypt",
     },

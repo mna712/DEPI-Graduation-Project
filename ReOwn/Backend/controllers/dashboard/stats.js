@@ -5,14 +5,11 @@ import Category from "../../models/categoryModel.js";
 
 export const getStats = async (req, res) => {
   try {
-    // Get total counts
     const totalUsers = await User.countDocuments();
     const totalProducts = await Product.countDocuments();
     const totalCategories = await Category.countDocuments();
-
-    // For reports, we'll use a placeholder for now (could be based on rates or something)
-    const totalReports = 0; // TODO: implement based on actual reports
-
+  
+    const totalReports = 0;
     res.status(200).json({
       status: 200,
       success: SUCCESS,
