@@ -15,7 +15,7 @@ const navigate = useNavigate();
     const categories = [
       {
         id: 1,
-        name: "Home & Kitchen",
+        name: "Home & Kitchen", 
         icon: MdKitchen,
         gradient: "from-orange-400 to-red-500",
       },
@@ -57,7 +57,7 @@ const navigate = useNavigate();
       },
     ];
   return (
-    <>
+    <> 
       {/* Categories Section */}
       <div className="px-4 py-16 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between mb-8">

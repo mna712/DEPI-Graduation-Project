@@ -1,5 +1,5 @@
 # DEPI-Graduation-Project
----
+
 # ReOwn
 
 ReOwn is a full-stack web application that enables users to buy and sell second-hand items within their local community. The platform provides a simple listing system with image uploads, detailed product information, and location-based browsing to help users find nearby items quickly. It also includes a real-time messaging feature for buyer–seller communication and an admin dashboard for managing users, products, and categories.

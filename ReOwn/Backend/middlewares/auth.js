@@ -6,7 +6,6 @@ export const protect = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(authHeader.split(" ")[1], process.env.JWT_SECRET);
-
     req.user = {
       _id: decoded.id,
       role: decoded.role

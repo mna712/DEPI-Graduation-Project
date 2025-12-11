@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import axios from 'axios';
 import { MOCK_PRODUCTS } from '../data/products';
 
 const ProductsContext = createContext();
@@ -23,23 +24,56 @@ export const ProductsProvider = ({ children }) => {
   const loadProducts = async () => {
     setLoading(true);
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 300));
-      setProducts(MOCK_PRODUCTS);
+      const token = localStorage.getItem('token');
+      if (token) {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        };
+        const response = await axios.get('http://localhost:3000/api/products', config);
+        setProducts(response.data);
+      } else {
+        // Use mock data if no token
+        setProducts(MOCK_PRODUCTS);
+      }
     } catch (error) {
       console.error("Error loading products:", error);
+      // Fallback to mock data if API fails
+      setProducts(MOCK_PRODUCTS);
     } finally {
       setLoading(false);
     }
   };
 
-  const addProduct = (newProduct) => {
-    const product = {
-      id: Date.now(), // Simple ID generation
-      ...newProduct,
-      categoryId: 1, // Default category, can be made dynamic later
-    };
-    setProducts(prevProducts => [product, ...prevProducts]);
+  const addProduct = async (newProduct) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (token) {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        };
+        const response = await axios.post('http://localhost:3000/api/products/add', newProduct, config);
+        // Add the new product to the local state
+        setProducts(prevProducts => [response.data, ...prevProducts]);
+        return response.data;
+      } else {
+        // If no token, add to local state only
+        const product = {
+          id: Date.now(),
+          ...newProduct,
+          categoryId: 1,
+        };
+        setProducts(prevProducts => [product, ...prevProducts]);
+        return product;
+      }
+    } catch (error) {
+      console.error("Error adding product:", error);
+      throw error;
+    }
   };
 
   return (

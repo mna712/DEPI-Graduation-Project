@@ -1,44 +1,55 @@
 import React, { useState } from 'react';
 import { Search, Users, X } from 'lucide-react';
+import DashboardLayout from './Dashboardlayout';
 
 const UserManagement = () => {
   const [users, setUsers] = useState([
-    {
-      id: 1,
-      name: "Menna Elgharabawii",
-      email: "mennaelgharabawii@gmail.com",
-      role: "User",
-      status: "Active",
-      warning: true,
-      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-    },
-    {
-      id: 2,
-      name: "Somaya Medhat",
-      email: "somaya@gmail.com",
-      role: "User",
-      status: "Active",
-      warning: true,
-      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face"
-    },
-    {
-      id: 3,
-      name: "Mariam Mohamed",
-      email: "mariam.com",
-      role: "Moderator",
-      status: "Active",
-      warning: false,
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
-    },
-    {
-      id: 4,
-      name: "Ahmed Elsayed",
-      email: "ahmed@gmail.com",
-      role: "User",
-      status: "Active",
-      warning: true,
-      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face"
-    }
+ {
+  id: 1,
+  name: "Menna Elgharabawii",
+  email: "menna.elgharabawii@gmail.com",
+  role: "User",
+  status: "Active",
+  warning: true,
+  avatar: "https://api.dicebear.com/9.x/shapes/svg?seed=Menna"
+},
+{
+  id: 2,
+  name: "Somaya Medhat",
+  email: "somaya.medhat@gmail.com",
+  role: "User",
+  status: "Active",
+  warning: true,
+  avatar: "https://api.dicebear.com/9.x/shapes/svg?seed=Somaya"
+},
+{
+  id: 3,
+  name: "Mariam Mohammed",
+  email: "mariam.mohammed@gmail.com",
+  role: "Moderator",
+  status: "Active",
+  warning: false,
+  avatar: "https://api.dicebear.com/9.x/shapes/svg?seed=Mariam"
+},
+{
+  id: 4,
+  name: "Ahmed Elsayed",
+  email: "ahmed.elsayed@gmail.com",
+  role: "User",
+  status: "Active",
+  warning: true,
+  avatar: "https://api.dicebear.com/9.x/shapes/svg?seed=Ahmed"
+},
+{
+  id: 5,
+  name: "Hana Elsendy",
+  email: "hana.elsendy@gmail.com",
+  role: "User",
+  status: "Active",
+  warning: false,
+  avatar: "https://api.dicebear.com/9.x/shapes/svg?seed=Hana"
+}
+
   ]);
 
   const [showAddModal, setShowAddModal] = useState(false);
@@ -119,6 +130,7 @@ const UserManagement = () => {
   };
 
   return (
+    <DashboardLayout>
     <div className="min-h-screen bg-gray-100 p-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
@@ -404,6 +416,7 @@ const UserManagement = () => {
         )}
       </div>
     </div>
+    </DashboardLayout>
   );
 };
 

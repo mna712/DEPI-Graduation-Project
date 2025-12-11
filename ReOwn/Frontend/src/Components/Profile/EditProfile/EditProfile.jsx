@@ -4,8 +4,8 @@ import { MdOpacity } from 'react-icons/md';
 function EditProfile() {
   const [Show , setShow] = useState("none")
   const [selected, setSelected] = useState("");
-  const [name, setName] = useState("John Smith");
-  const [email, setEmail] = useState("Johnsmith@gmail.com");
+  const [name, setName] = useState("Menna Elgharabawi");
+  const [email, setEmail] = useState("mennaelgharabawii@gmail.com");
   const [dob, setDob] = useState("");
   const [phone, setPhone] = useState("");
   const [loca] =useState([

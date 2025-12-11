@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Download, FileText } from 'lucide-react';
-
+import DashboardLayout from './Dashboardlayout';
 export default function Reports() {
   const [sortOrder, setSortOrder] = useState('newest');
   const [searchQuery, setSearchQuery] = useState('');
@@ -10,7 +10,7 @@ export default function Reports() {
       id: 1,
       title: 'Spam',
       date: '22/5/2025',
-      author: 'john smith',
+      author: 'Menna Elgharabawii',
       tag: 'Spam',
       tagColor: 'bg-gray-300',
     },
@@ -18,7 +18,7 @@ export default function Reports() {
       id: 2,
       title: 'Inappropriate profile picture',
       date: '22/5/2025',
-      author: 'john smith',
+      author: 'Menna Elgharabawii',
       tag: 'Inappropriate profile picture',
       tagColor: 'bg-purple-200',
     },
@@ -26,7 +26,7 @@ export default function Reports() {
       id: 3,
       title: 'Fraud',
       date: '22/5/2025',
-      author: 'john smith',
+      author: 'Menna Elgharabawii',
       tag: 'Fraud',
       tagColor: 'bg-gray-300',
     },
@@ -34,7 +34,7 @@ export default function Reports() {
       id: 4,
       title: 'This user insulting me',
       date: '22/5/2025',
-      author: 'john smith',
+      author: 'Menna Elgharabawii',
       tag: 'This user is insulting me',
       tagColor: 'bg-teal-200',
     },
@@ -54,8 +54,9 @@ export default function Reports() {
     });
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 sm:p-6 lg:p-8">
-      <div className="max-w-5xl mx-auto">
+    <DashboardLayout>
+      <div className="p-4 sm:p-6 lg:p-8">
+        <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800">
@@ -155,5 +156,6 @@ export default function Reports() {
         </div>
       </div>
     </div>
+    </DashboardLayout>
   );
 }

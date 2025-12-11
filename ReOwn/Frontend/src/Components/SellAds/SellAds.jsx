@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useProducts } from "../../Context/ProductsContext";
 import { useAuth } from "../../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function SellAd() {
   const { addProduct } = useProducts();
@@ -34,7 +35,7 @@ export default function SellAd() {
     return newErrors;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -57,9 +58,14 @@ export default function SellAd() {
       phone: formData.phone
     };
 
-    addProduct(newProduct);
-    alert("Ad posted successfully!");
-    navigate("/");
+    try {
+      await addProduct(newProduct);
+      toast.success("Ad posted successfully!");
+      navigate("/products");
+    } catch (error) {
+      toast.error("Failed to post ad. Please try again.");
+      console.error("Error posting ad:", error);
+    }
   };
 
   return (

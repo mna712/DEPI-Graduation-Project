@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 
 export default function Login() {
@@ -60,13 +62,64 @@ export default function Login() {
 
     const hasErrors = Object.values(errors).some((error) => error);
     if (hasErrors) return;
-        const demoToken = "xyz123";
 
-    login(demoToken);
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    alert("✅ Login successful!");
-    setIsSubmitting(false);    
+  try {
+  const response = await axios.post(
+    "http://localhost:3000/api/user/login",
+    {
+      email: formData.email,
+      password: formData.password,
+    }
+  );
+
+
+  if (response.status === 200) {
+    const token = response.data?.data?.token;
+    const role = response.data?.data?.role;
+
+    if (!token) {
+      alert("❌ Token not received from server!");
+      return;
+    }
+
+    login(token); 
+    toast.success("Login successful!");
+    navigate("/");
+  }
+} 
+catch (error) {
+  if (error.response) {
+    const { status, message } = error.response.data;
+
+    if (status === 400) {
+      alert("⚠️ " + message); 
+    }
+    else if (status === 401) {
+      alert("❌ Incorrect password.");
+    }
+    else if (status === 404) {
+      alert("❌ User not found.");
+    }
+    else {
+      alert("❌ Server error: " + message);
+    }
+  }
+
+  else if (error.request) {
+    alert("❌ Cannot reach server. Check connection or backend URL.");
+  }
+
+  else {
+    alert("❌ Unexpected error occurred.");
+  }
+
+  console.error("Login failed:", error);
+}
+finally {
+  setIsSubmitting(false);
+}
+
   };
 
 
@@ -245,7 +298,7 @@ export default function Login() {
               <div className="text-right animate-fadeInUp animation-delay-500">
                 <button
                   type="button"
-                  onClick={() => navigate("/forgetPassword")}
+                  onClick={() => navigate("/forgetpassword")}
                   className="text-sm font-semibold text-green-600 transition-all hover:text-green-700 hover:underline"
                 >
                   Forgot password?
