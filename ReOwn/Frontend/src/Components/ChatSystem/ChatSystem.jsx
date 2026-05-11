@@ -1,69 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
+import { io } from "socket.io-client";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-// Mock conversations data
-const mockConversations = [
-  {
-    id: 1,
-    userName: "Somaya",
-    lastMessage: "Is it still available?",
-    time: "2:35 pm",
-    avatar: "👸",
-    productId: 1,
-    unread: 2,
-  },
-  {
-    id: 2,
-    userName: "Ahmed",
-    lastMessage: "What's the condition?",
-    time: "1:20 pm",
-    avatar: "👤",
-    productId: 1,
-    unread: 0,
-  },
-  {
-    id: 3,
-    userName: "Mona",
-    lastMessage: "Can we meet today?",
-    time: "Yesterday",
-    avatar: "👩",
-    productId: 2,
-    unread: 1,
-  },
-  {
-    id: 4,
-    userName: "Omar",
-    lastMessage: "I'll take it!",
-    time: "Yesterday",
-    avatar: "👷‍♂️",
-    productId: 1,
-    unread: 0,
-  },
-];
-
-const mockMessages = [
-  {
-    id: 1,
-    senderId: 2,
-    text: "Hello, is this available?",
-    time: "2:30 pm",
-    isMine: false,
-  },
-  {
-    id: 2,
-    senderId: 1,
-    text: "Yes, still available!",
-    time: "2:31 pm",
-    isMine: true,
-  },
-  {
-    id: 3,
-    senderId: 2,
-    text: "Is it still available?",
-    time: "2:35 pm",
-    isMine: false,
-  },
-];
 
 export default function ChatSystem() {
   const navigate = useNavigate();
@@ -72,56 +11,269 @@ export default function ChatSystem() {
 
   const [view, setView] = useState("chat"); 
   const [selectedConversation, setSelectedConversation] = useState(null);
-  const [conversations, setConversations] = useState(mockConversations);
+  const [conversations, setConversations] = useState([]);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
+const socketRef = useRef(null);
+  //integrate with bckend to fetch product details using productId
+ const [currentProduct, setCurrentProduct] =
+  useState(null);
 
-  
-  const productData = location.state || {};
-  const currentProduct = {
-    id: productId,
-    name: productData.productName || "iPhone 13 Pro Max",
-    price: productData.productPrice || "30,500 EGP",
-    image:
-      productData.productImage ||
-      "https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=400",
-    sellerId: productData.sellerId || 2,
-    sellerName: productData.sellerName || "Seller",
-  };
-
-  const currentUserId = 1; 
-
+const currentUserId =
+  JSON.parse(
+    localStorage.getItem("user")
+  )?._id;
 
   useEffect(() => {
-    console.log("Product ID from URL:", productId);
-    console.log("Product Data:", productData);
 
-    
-    const existingConversation = conversations.find(
-      (conv) => conv.productId === parseInt(productId)
+  socketRef.current = io("http://localhost:3000", {
+
+    auth: {
+      token: localStorage.getItem("token"),
+    },
+  });
+
+  socketRef.current.on("connect", () => {
+
+    console.log("Socket connected");
+  });
+
+  socketRef.current.on("receiveMessage", (message) => {
+
+    setMessages((prev) => [...prev, {
+      ...message,
+      isMine:
+        message.sender._id === currentUserId,
+    }]);
+  });
+
+  socketRef.current.on("typing", () => {
+
+    setIsTyping(true);
+
+    setTimeout(() => {
+      setIsTyping(false);
+    }, 2000);
+  });
+
+  return () => {
+
+    socketRef.current.disconnect();
+  };
+
+}, [currentUserId]);
+
+useEffect(() => {
+
+  const fetchProduct = async () => {
+
+    try {
+
+      const response = await axios.get(
+        `http://localhost:3000/api/products/${productId}`
+      );
+
+      setCurrentProduct(response.data);
+
+    } catch (error) {
+
+      console.log(error);
+    }
+  };
+
+  if (productId) {
+
+    fetchProduct();
+  }
+
+}, [productId]);
+
+useEffect(() => {
+
+  const fetchConversations = async () => {
+
+    try {
+
+      const token =
+        localStorage.getItem("token");
+
+      const response = await axios.get(
+
+        "http://localhost:3000/api/chat/conversations",
+
+        {
+          headers: {
+            Authorization:
+              `Bearer ${token}`,
+          },
+        }
+      );
+
+      setConversations(response.data);
+
+    } catch (error) {
+
+      console.log(error);
+    }
+  };
+
+  fetchConversations();
+
+}, []);
+
+ useEffect(() => {
+
+  const initializeConversation =
+    async () => {
+
+    if (!currentProduct) return;
+
+    try {
+
+      const token =
+        localStorage.getItem("token");
+
+      /*
+      Find existing conversation
+      */
+
+      const existingConversation =
+        conversations.find(
+
+          (conv) =>
+
+            conv.productId?._id ===
+            productId
+        );
+
+      if (existingConversation) {
+
+        openConversation(
+          existingConversation
+        );
+
+        return;
+      }
+
+      /*
+      Create new conversation
+      */
+
+      const response =
+        await axios.post(
+
+          "http://localhost:3000/api/chat/conversation",
+
+          {
+            receiverId:
+              currentProduct.sellerId,
+
+            productId,
+          },
+
+          {
+            headers: {
+              Authorization:
+                `Bearer ${token}`,
+            },
+          }
+        );
+
+      const newConversation =
+        response.data;
+
+      setConversations((prev) => [
+
+        newConversation,
+
+        ...prev,
+      ]);
+
+      openConversation(
+        newConversation
+      );
+
+    } catch (error) {
+
+      console.log(error);
+    }
+  };
+
+  if (
+    conversations.length >= 0 &&
+    currentProduct
+  ) {
+
+    initializeConversation();
+  }
+
+}, [
+  productId,
+  conversations,
+  currentProduct,
+]);
+
+const getOtherMember = (
+  conversation
+) => {
+
+  return conversation.members?.find(
+
+    (member) =>
+
+      member._id !== currentUserId
+  );
+};
+
+const openConversation = async (
+  conversation
+) => {
+
+  try {
+
+    setSelectedConversation(conversation);
+
+    setView("chat");
+
+    socketRef.current.emit(
+      "joinConversation",
+      conversation._id
     );
 
-    if (existingConversation) {
-     // open the exist chat 
-      openConversation(existingConversation);
-    } else {
-      //create new chat
-      const newConversation = {
-        id: Date.now(),
-        userName: currentProduct.sellerName,
-        lastMessage: "Start chatting...",
-        time: "Now",
-        avatar: "👤",
-        productId: parseInt(productId),
-        unread: 0,
-      };
-      setConversations((prev) => [newConversation, ...prev]);
-      openConversation(newConversation);
-    }
-  }, [productId]);
+    const token =
+      localStorage.getItem("token");
+
+    const response = await axios.get(
+
+      `http://localhost:3000/api/chat/messages/${conversation._id}`,
+
+      {
+        headers: {
+          Authorization:
+            `Bearer ${token}`,
+        },
+      }
+    );
+
+    const formattedMessages =
+      response.data.map((msg) => ({
+
+        ...msg,
+
+        isMine:
+          msg.sender._id === currentUserId,
+      }));
+
+    setMessages(formattedMessages);
+
+  } catch (error) {
+
+    console.log(error);
+  }
+};
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -131,46 +283,90 @@ export default function ChatSystem() {
     scrollToBottom();
   }, [messages]);
 
-  const openConversation = (conversation) => {
-    setSelectedConversation(conversation);
-    setMessages(mockMessages);
-    setView("chat");
-  };
+  //load conversations from backend
+  const Conversations = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        "http://localhost:3000/api/conversations",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        } )
+        return await response.json();
+  }
+  catch (error) {
+      console.error("Error fetching conversations:", error);
+    }
+  }
+
 
   const sendMessage = () => {
-    if (newMessage.trim() === "") return;
 
-    const message = {
-      id: Date.now(),
-      senderId: currentUserId,
-      text: newMessage,
-      time: new Date().toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-      isMine: true,
-      conversationId: selectedConversation?.id,
-    };
+  if (newMessage.trim() === "") return;
 
-    setMessages([...messages, message]);
-    setNewMessage("");
+  socketRef.current.emit("sendMessage", {
 
-    /* Socket.IO Integration:
-    socket.emit('sendMessage', {
-      conversationId: selectedConversation.id,
-      message
-    });
-  */
+    conversationId: selectedConversation._id,
+
+    text: newMessage,
+  });
+
+  const localMessage = {
+
+    _id: Date.now(),
+
+    senderId: currentUserId,
+
+    text: newMessage,
+
+    time: new Date().toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+    }),
+
+    isMine: true,
   };
 
-  const handleTyping = () => {
-    // socket.emit('typing', {...});
-  };
+  setMessages((prev) => [
+    ...prev,
+    localMessage,
+  ]);
 
-  const filteredConversations = conversations.filter((conv) =>
-    conv.userName.toLowerCase().includes(searchQuery.toLowerCase())
+  setNewMessage("");
+};
+
+ const handleTyping = () => {
+
+  if (!selectedConversation) return;
+
+  socketRef.current.emit("typing", {
+
+    conversationId:
+      selectedConversation._id,
+  });
+};
+
+const filteredConversations =
+  conversations.filter((conv) =>
+
+    getOtherMember(conv)
+      ?.name
+      ?.toLowerCase()
+      .includes(
+        searchQuery.toLowerCase()
+      )
   );
 
+if (!currentProduct) {
+
+  return (
+    <div>
+      Loading...
+    </div>
+  );
+}
   return (
     <div className="flex flex-col h-screen bg-gray-50">
       {/* Header with Back Button */}
@@ -225,10 +421,10 @@ export default function ChatSystem() {
             <div>
               {filteredConversations.map((conv) => (
                 <button
-                  key={conv.id}
+                  key={conv._id}
                   onClick={() => openConversation(conv)}
                   className={`w-full p-4 border-b hover:bg-gray-50 transition-colors text-left ${
-                    selectedConversation?.id === conv.id ? "bg-green-50" : ""
+                    selectedConversation?._id === conv._id ? "bg-green-50" : ""
                   }`}
                 >
                   <div className="flex items-center gap-3">
@@ -238,7 +434,7 @@ export default function ChatSystem() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between mb-1">
                         <h3 className="font-medium truncate">
-                          {conv.userName}
+                          {getOtherMember(conv)?.name}
                         </h3>
                         <span className="text-xs text-gray-500">
                           {conv.time}
@@ -297,11 +493,11 @@ export default function ChatSystem() {
                     </svg>
                   </button>
                   <div className="flex items-center justify-center w-10 h-10 text-xl bg-gray-200 rounded-full">
-                    {selectedConversation.avatar}
+                    {getOtherMember(selectedConversation)?.avatar}
                   </div>
                   <div>
                     <h3 className="font-medium">
-                      {selectedConversation.userName}
+                      {getOtherMember(selectedConversation)?.name}
                     </h3>
                     <p className="text-xs text-gray-500">Online</p>
                   </div>
@@ -346,7 +542,7 @@ export default function ChatSystem() {
 
                 {messages.map((msg) => (
                   <div
-                    key={msg.id}
+                    key={msg._id}
                     className={`mb-4 flex ${
                       msg.isMine ? "justify-end" : "justify-start"
                     }`}

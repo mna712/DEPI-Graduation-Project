@@ -119,6 +119,7 @@ catch (error) {
 finally {
   setIsSubmitting(false);
 }
+ console.log("Form data submitted:", formData,);
 
   };
 

@@ -4,7 +4,7 @@ export const createConversation = async (req, res) => {
 
     try {
 
-        const { receiverId, productId } = req.body;
+        const { receiverId, productId } = req.body;   //6a020231d84e8ae760fbab0d
 
         const existingConversation = await Conversation.findOne({
             members: {
