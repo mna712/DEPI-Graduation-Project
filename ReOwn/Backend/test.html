@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket Test</title>
+  </head>
+
+  <body>
+    <h1>Socket Test</h1>
+
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+
+    <script>
+      console.log("SCRIPT RUNNING");
+
+      const socket = io("http://localhost:3000");
+
+      console.log(socket);
+
+      socket.on("connect", () => {
+        console.log("CONNECTED");
+      });
+
+      socket.on("connect_error", (err) => {
+        console.log("CONNECT ERROR");
+        console.log(err);
+      });
+
+      socket.on("disconnect", () => {
+        console.log("DISCONNECTED");
+      });
+    </script>
+  </body>
+</html>
